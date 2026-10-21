@@ -108,25 +108,25 @@ Sufijo de la red interbancaria. **No forma parte del código del banco**, pero c
 
 ## 📋 Prefijos
 
-Un prefijo es la red más el producto. Cada uno dice qué tarjeta es, en qué moneda y en qué bancos está confirmada.
+Un prefijo es la red más el producto. Cada uno dice qué tarjeta es, en qué moneda y en qué bancos está confirmada. **🧾 fiscal** marca los que la ONAT lista como cuenta bancaria fiscal (CBF).
 
 <!-- prefixes:start -->
 ### 🇨🇺 Pesos cubanos (CUP)
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9200`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9200) ¹ | — | C |
-| **`9202`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9202) | — | C |
-| **`9204`** | Nómina, fondos, ahorro | BANDEC | B · C |
-| **`9205`** | Ahorro | BANDEC | B · C |
-| **`9206`** | Jubilación | BANDEC | B · C |
+| **`9200`** | Ahorro ¹ | — | C · O |
+| **`9202`** | Estímulo | — | C · O |
+| **`9204`** | Nómina, fondos, ahorro ² | BANDEC | B · C · O |
+| **`9205`** | Ahorro | BANDEC | B · C · O |
+| **`9206`** | Jubilación | BANDEC | B · C · O |
 | **`9210`** | Colaboradores | BANDEC | B · C · T |
 | **`9211`** | Colaboradores | BANDEC | B · C · T |
-| **`9212`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · C |
-| **`9213`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · C |
+| **`9212`** | TCP, taxistas, GNE y APE · 🧾 fiscal ³ | BANDEC | B · C · O |
+| **`9213`** | TCP, taxistas, GNE y APE · 🧾 fiscal ⁴ | BANDEC | B · C · O |
 | **`9216`** | Subsidios | BANDEC | B · C |
-| **`9224`** | Nómina, fondos, ahorro | BANDEC | B · C |
-| **`9227`** | Nómina, fondos, ahorro | BANDEC | B · C |
+| **`9224`** | Nómina, fondos, ahorro ⁵ | BANDEC | B · C · O |
+| **`9227`** | Nómina, fondos, ahorro · Nómina de artistas ⁶ | BANDEC | B · C · O |
 | **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · C |
 | **`9234`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9234) | — | C |
 | **`9237`** | Agricultores / usufructuarios | BANDEC | B · C |
@@ -135,21 +135,35 @@ Un prefijo es la red más el producto. Cada uno dice qué tarjeta es, en qué mo
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
 | **`9550`** | AIS CUP | AIS | S |
 
-> ¹ **`9200`**: El catálogo comunitario la describe como «Tarjeta en CUP», sin propósito concreto.
+> ¹ **`9200`**: Tiene dos usos según la ONAT: ahorro en CUP y ahorro en USD. El catálogo comunitario la describe como «Tarjeta en CUP».
+>
+> ² **`9204`**: La ONAT la describe como nómina.
+>
+> ³ **`9212`**: Cuenta bancaria fiscal (CBF) en CUP. BANDEC la describe como «Trabajadores por cuenta propia (TCP)»; la ONAT detalla sus usos: TCP, taxistas, GNE y APE.
+>
+> ⁴ **`9213`**: Cuenta bancaria fiscal (CBF) en CUP. BANDEC la describe como «Trabajadores por cuenta propia (TCP)»; la ONAT detalla sus usos: TCP, taxistas, GNE y APE.
+>
+> ⁵ **`9224`**: Según la ONAT, es una extensión del producto 04 (nómina).
+>
+> ⁶ **`9227`**: Tiene dos usos: nómina, como extensión del producto 24, y nómina de artistas, que según la ONAT es cuenta bancaria fiscal (CBF).
 
 ### 💵 USD con respaldo en MLC
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9225`** | Ahorro de personas naturales | BANDEC | B · C |
-| **`9226`** | TCP / productores agropecuarios | BANDEC | B · C |
+| **`9225`** | Ahorro de personas naturales | BANDEC | B · C · O |
+| **`9226`** | TCP, OFGNE y APE · 🧾 fiscal ¹ | BANDEC | B · C · O |
 | **`9228`** | Cooperativas / MIPYMES | BANDEC | B · C |
-| **`9229`** | Otras entidades ¹ | BANDEC | B · C |
-| **`9235`** | Ahorro de personas naturales | BANDEC | B · C |
+| **`9229`** | Otras entidades ² | BANDEC | B · C |
+| **`9235`** | Ahorro de personas naturales ³ | BANDEC | B · C · O |
 | **`9245`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9245) | — | C |
 | **`9250`** | Cooperativas / MIPYMES | — | C |
 
-> ¹ **`9229`**: El catálogo comunitario la describe como «Personas jurídicas».
+> ¹ **`9226`**: Cuenta bancaria fiscal (CBF) en USD con respaldo en MLC. BANDEC la describe como «TCP / productores agropecuarios»; la ONAT detalla sus usos: TCP, OFGNE y APE.
+>
+> ² **`9229`**: El catálogo comunitario la describe como «Personas jurídicas».
+>
+> ³ **`9235`**: Según la ONAT, es una extensión del producto 25.
 
 ### 💳 USD
 
@@ -167,6 +181,18 @@ Un prefijo es la red más el producto. Cada uno dice qué tarjeta es, en qué mo
 ## ✅ Validar un número
 
 Se valida un elemento cada vez, en orden, y cada uno contra los anteriores. El primero que falla es el que hay que corregir, y se puede avisar mientras el usuario escribe.
+
+```mermaid
+flowchart TD
+  R["1 · Red"] -->|sí| P["2 · Producto"] -->|sí| B["3 · Banco"] -->|sí| S["4 · SMPE"] -->|sí| L["5 · Luhn"] -->|sí| OK(["✅ Válida"])
+  R & P & B & S & L -.->|no| X["❌ Falla ese elemento"]
+  classDef paso fill:#eef4ff,stroke:#3b6fd8,color:#0f1f3d
+  classDef ok fill:#e6f7ec,stroke:#1f9d55,color:#0b3d20
+  classDef error fill:#fdecec,stroke:#d64545,color:#4a1010
+  class R,P,B,S,L paso
+  class OK ok
+  class X error
+```
 
 | | Elemento | Es válido si… | Ejemplo que falla | Por qué |
 |:-:|---|---|---|---|
@@ -378,8 +404,9 @@ Cada prefijo de `prefixes.json` tiene esta forma:
 | `aliases` | Otros nombres con los que se conoce |
 | `issuers` | Bancos en los que una fuente confirma el producto |
 | `sources` | Fuentes de ese dato (lista `sources` al final del fichero) |
-| `notes` | Aclaraciones y contradicciones entre fuentes |
+| `notes` | Aclaraciones: productos con más de un uso y diferencias entre fuentes |
 | `exclusive` | Opcional. `true` si el producto solo existe en los bancos de `issuers` (la Tropical) |
+| `fiscal` | Opcional. `true` si la ONAT lo lista como cuenta bancaria fiscal (CBF) |
 
 En `issuers`, `code` es el código del banco y `smpe` su SMPE. Si `smpe` está incompleto, el resto todavía no se conoce; si es `null`, no se conoce.
 
@@ -394,6 +421,7 @@ En `issuers`, `code` es el código del banco y `smpe` su SMPE. Si `smpe` está i
 | **C** | Cuban Bank Card Prefixes v1.0.0 (2026-06-20) | Catálogo comunitario. Para la estructura del número cita el documento «Tomo 2 Digital». |
 | **T** | Titulares de tarjeta | Titulares que confirman tarjetas BANDEC (06·999) y BPA (12·997) y tarjetas BANDEC 9210 y 9211. |
 | **S** | Titulares: banco y SMPE | Redes 92 (RED), 95 (AIS) y 97 (Clásica); código de banco y SMPE de cada banco (BANDEC 06·999, BPA 12·997, Metropolitano 95·987, Clásica 03·900, AIS 02·90); productos AIS 50 (CUP) y 60 (USD); la Tropical (9240) es USD sin respaldo en MLC y solo existe en BANDEC. |
+| **O** | [¿Quieres identificar si la tarjeta corresponde a una cuenta bancaria fiscal? (ONAT)](https://www.facebook.com/100052421823017/posts/quieres-identificar-si-la-tarjeta-corresponde-a-una-cuenta-bancaria-fiscal-aquí-/1302178201539562/) | Tabla de la ONAT con el producto de cada prefijo y cuáles son cuentas bancarias fiscales (CBF). |
 | **ISO** | [ISO/IEC 7812-1: números de identificación de tarjetas](https://en.wikipedia.org/wiki/ISO/IEC_7812) | El último dígito de un número de tarjeta es un dígito de control Luhn. |
 <!-- sources:end -->
 

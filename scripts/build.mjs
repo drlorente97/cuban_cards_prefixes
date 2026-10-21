@@ -149,7 +149,7 @@ const groups = [
 const SUP = ['¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
 const prefixRow = (p, mark) => {
   const product = p.product
-    ? p.product + (p.aliases.length ? ` · «${p.aliases.join('», «')}»` : '')
+    ? p.product + (p.aliases.length ? ` · «${p.aliases.join('», «')}»` : '') + (p.fiscal ? ' · 🧾 fiscal' : '')
     : `_Sin identificar_ · ${askLink(p.prefix)}`
   return `| **\`${p.prefix}\`** | ${product}${mark ? ` ${mark}` : ''} | ${p.issuers.map(id => issuerName[id]).join(', ') || '—'} | ${p.sources.map(id => short[id]).join(' · ')} |`
 }

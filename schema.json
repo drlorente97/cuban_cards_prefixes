@@ -86,6 +86,7 @@
             "uniqueItems": true,
             "description": "Bancos en los que una fuente confirma este producto. No es una lista exclusiva, salvo con exclusive."
           },
+          "fiscal": { "type": "boolean", "description": "true = se usa para cuentas bancarias fiscales (CBF), según la ONAT. Si falta, no se sabe o no lo es." },
           "exclusive": { "type": "boolean", "description": "true = el producto solo existe en los bancos de issuers. Si falta, cualquier banco de la red." },
           "sources": { "$ref": "#/$defs/sourceList" },
           "notes": { "type": ["string", "null"] }
