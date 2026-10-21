@@ -4,13 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A data repository, not an application: an open catalog of Cuban bank card prefixes (product, currency and bank behind the first 4–8 digits of a card) plus regex validators derived from it. It has zero dependencies, needs only Node (CI uses 22), and has no tests beyond the build's own checks. Consumers fetch the JSON files directly from jsDelivr/GitHub `@main`, so whatever lands on `main` is effectively published.
+A data repository, not an application: an open catalog of Cuban bank card prefixes (product, currency and bank behind the first 4–8 digits of a card) plus regex validators derived from it. It has zero package dependencies and builds with Node (CI uses 22). Node's built-in test runner tests the README's JavaScript and PHP examples; PHP tests skip locally if PHP is unavailable but are required in CI. Consumers fetch the JSON files directly from jsDelivr/GitHub `@main`, so whatever lands on `main` is effectively published.
 
 ## Commands
 
 ```sh
 npm run build   # regenerate validators.json and the generated README sections from prefixes.json
-npm run check   # fail if prefixes.json is inconsistent or validators.json/README.md are stale (what CI runs)
+npm run check   # check data consistency and generated files, then run the tests (what CI runs)
+npm test        # test the README's JavaScript/PHP examples with local JSON fixtures, without network access
 ```
 
 ## Data flow

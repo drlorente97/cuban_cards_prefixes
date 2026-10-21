@@ -183,6 +183,8 @@ Los patrones usan `[0-9]` en lugar de `\d`, porque en Python y en otros motores 
 <details open>
 <summary><b>JavaScript</b></summary>
 
+`kind` debe ser una cadena con una clave de `v.patterns`, en minúsculas. Un tipo desconocido lanza `RangeError` con la lista de valores admitidos.
+
 ```js
 const BASE = 'https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@main'
 const [catalog, v] = await Promise.all(
@@ -203,6 +205,9 @@ const normalize = (raw) => String(raw ?? '').replace(new RegExp(v.normalize.stri
 
 // kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial
 const isCubanCard = (raw, kind = 'any') => {
+  if (typeof kind !== 'string' || !Object.hasOwn(v.patterns, kind)) {
+    throw new RangeError(`kind inválido: ${String(kind)}. Usa: ${Object.keys(v.patterns).join(', ')}`)
+  }
   const n = normalize(raw)
   return new RegExp(v.patterns[kind]).test(n) && luhn(n)
 }
@@ -277,6 +282,8 @@ describe('9205 0699 0000 0000')
 <details>
 <summary><b>PHP</b></summary>
 
+Un `$kind` desconocido lanza `InvalidArgumentException` con la lista de valores admitidos.
+
 ```php
 <?php
 $base = 'https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@main';
@@ -298,6 +305,9 @@ function normalizeCard(string $raw, array $v): string {
 
 // $kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial
 function isCubanCard(string $raw, array $v, string $kind = 'any'): bool {
+    if (!array_key_exists($kind, $v['patterns'])) {
+        throw new InvalidArgumentException('kind inválido: ' . $kind . '. Usa: ' . implode(', ', array_keys($v['patterns'])));
+    }
     $n = normalizeCard($raw, $v);
     return preg_match('/' . $v['patterns'][$kind] . '/', $n) === 1 && luhn($n);
 }
