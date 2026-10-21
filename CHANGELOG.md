@@ -2,6 +2,27 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.4.0 · 2026-10-21
+
+### Fuente nueva
+
+- **H**: [«Cómo identificar tarjetas bancarias en Cuba por sus dígitos»](https://www.lahabana.gob.cu/post_detalles/es/29956/como-identificar-tarjetas-bancarias-en-cuba-por-sus-digitos), del Portal del Ciudadano de La Habana. Reproduce la nota de BANDEC (fuente **B**), que hasta ahora no tenía enlace, así que ahora todos los prefijos de esa nota citan una fuente oficial con URL. Gracias a [@livegnik97](https://github.com/livegnik97) ([#11](https://github.com/qvapay/cuban_cards_prefixes/issues/11)).
+
+### Datos nuevos
+
+- `9200`: confirmada en BANDEC por [@rblez](https://github.com/rblez) ([#9](https://github.com/qvapay/cuban_cards_prefixes/issues/9)) y en Banco Metropolitano por [@earlyhp-qvapay](https://github.com/earlyhp-qvapay) ([#14](https://github.com/qvapay/cuban_cards_prefixes/issues/14)), que además cuenta que son las antiguas tarjetas en CUC convertidas a CUP; queda anotado a la espera de otra fuente.
+- `9205`: Ahorro, confirmada también en BPA por [@aalvarezcbr](https://github.com/aalvarezcbr) ([#12](https://github.com/qvapay/cuban_cards_prefixes/issues/12)).
+- `9224`: confirmada en Banco Metropolitano por [@vcarv7](https://github.com/vcarv7) ([#10](https://github.com/qvapay/cuban_cards_prefixes/issues/10)).
+- `9227`: confirmada en Banco Metropolitano por [@Chichimokers](https://github.com/Chichimokers) ([#8](https://github.com/qvapay/cuban_cards_prefixes/issues/8)).
+- `9250`: BANDEC la incluye en su nota junto a la `9228` (fuente **H**), así que pasa a estar confirmada en BANDEC.
+- `9240`: la nota de BANDEC también la llama «Tropical»; queda en las notas.
+
+Casi todos estos reportes llegaron desde el [Explorador de tarjetas cubanas](https://rblez.github.io/explorador-tarjetas-cubanas/) de [@rblez](https://github.com/rblez), que consume este catálogo en vivo y permite reportar un prefijo con un clic.
+
+### Compatibilidad
+
+- Los patrones no cambian: ya aceptaban cualquier banco RED para cualquier producto RED.
+
 ## 0.3.1 · 2026-10-21
 
 ### Datos nuevos
