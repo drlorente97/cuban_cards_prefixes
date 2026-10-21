@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-27-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-5-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.4.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.5.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -71,7 +71,7 @@ Las tarjetas de la red **RED** tienen 16 dígitos:
 
 Con los **4 primeros dígitos** ya se sabe el producto y la moneda. Con los **8 primeros**, también el banco.
 
-La tarjeta **Clásica** (`9760`) no sigue esta estructura: sus dígitos 5–8 no son un código de banco. Sus dígitos 5–6 distinguen productos: `976004` es la Clásica Empresarial.
+La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta estructura: sus dígitos 5–8 no son un código de banco. Los dígitos 5–6 de la Clásica distinguen productos: `976004` es la Clásica Empresarial.
 
 ## 🏦 Bancos
 
@@ -83,6 +83,7 @@ La tarjeta **Clásica** (`9760`) no sigue esta estructura: sus dígitos 5–8 no
 | **Banco Metropolitano** | `9598` | `issuers.METROPOLITANO` |
 | **BICSA** · Banco Internacional de Comercio S.A. | `04··` (parcial) | `issuers.BICSA` |
 | **FINCIMEX** · Financiera CIMEX S.A. | — | `patterns.clasica` |
+| **AIS** · American International Services | — | `patterns.ais_cup`, `patterns.ais_usd` |
 <!-- banks:end -->
 
 ## 📋 Prefijos
@@ -110,6 +111,7 @@ La tarjeta **Clásica** (`9760`) no sigue esta estructura: sus dígitos 5–8 no
 | **`9238`** | Ahorro | BPA | C · T |
 | **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
+| **`9550`** | AIS CUP ⁵ | AIS | A · FX |
 
 > ¹ **`9200`**: El catálogo comunitario y la nota de BANDEC la describen como «Tarjeta en CUP», sin propósito concreto. Titulares la confirman en BANDEC (issue #9) y en Banco Metropolitano (issue #14). Un titular reporta que son las antiguas tarjetas en CUC, que pasaron a CUP al retirarse esa moneda (issue #14); falta otra fuente que lo confirme.
 >
@@ -118,6 +120,8 @@ La tarjeta **Clásica** (`9760`) no sigue esta estructura: sus dígitos 5–8 no
 > ³ **`9224`**: Banco Metropolitano confirmado por un titular en el issue #10.
 >
 > ⁴ **`9227`**: Banco Metropolitano confirmado por un titular en el issue #8.
+>
+> ⁵ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
 
 ### 💵 USD con respaldo en MLC
 
@@ -128,23 +132,24 @@ La tarjeta **Clásica** (`9760`) no sigue esta estructura: sus dígitos 5–8 no
 | **`9228`** | Cooperativas / MIPYMES | BANDEC | B · H · C |
 | **`9229`** | Otras entidades ¹ | BANDEC | B · H · C |
 | **`9235`** | Ahorro de personas naturales | BANDEC | B · H · C |
-| **`9240`** | Ahorro de personas naturales · «Tropical» ² | BANDEC | B · H · C |
 | **`9245`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9245) | — | C |
-| **`9250`** | Cooperativas / MIPYMES ³ | BANDEC | C · H |
+| **`9250`** | Cooperativas / MIPYMES ² | BANDEC | C · H |
 
 > ¹ **`9229`**: El catálogo comunitario la describe como «Personas jurídicas».
 >
-> ² **`9240`**: BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD.
->
-> ³ **`9250`**: La nota de BANDEC que reproduce el portal de La Habana la agrupa con la 9228.
+> ² **`9250`**: La nota de BANDEC que reproduce el portal de La Habana la agrupa con la 9228.
 
 ### 💳 USD
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9760`** | Clásica · `976004` Clásica Empresarial ¹ | FINCIMEX | C · T · CE |
+| **`9240`** | Prepago en USD · «Tropical» ¹ | BANDEC | B · H · C · D |
+| **`9760`** | Clásica · `976004` Clásica Empresarial ² | FINCIMEX | C · T · CE |
+| **`9560`** | AIS USD | AIS | A |
 
-> ¹ **`9760`**: No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
+> ¹ **`9240`**: Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC.
+>
+> ² **`9760`**: No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
 <!-- prefixes:end -->
 
 **Confirmado en** son los bancos en los que una fuente confirma ese producto. No es una lista cerrada: el mismo producto puede existir en otros bancos, y los validadores lo aceptan en cualquier banco conocido. Las letras de **Fuentes** se explican en [Fuentes](#-fuentes).
@@ -170,10 +175,12 @@ flowchart LR
 | `patterns.any` | Cualquier tarjeta cubana del catálogo |
 | `patterns.red` | Cualquier tarjeta de la red RED |
 | `patterns.cup` | Tarjetas en CUP |
-| `patterns.usd` | Tarjetas en USD, incluida la Clásica |
+| `patterns.usd` | Tarjetas en USD, incluidas la Clásica y la AIS en USD |
 | `patterns.usd_mlc` | Tarjetas en USD con respaldo en MLC |
 | `patterns.clasica` | Tarjeta Clásica, incluida la Clásica Empresarial |
 | `patterns.clasica_empresarial` | Clásica Empresarial (`976004`) |
+| `patterns.ais_cup` | Tarjeta AIS en CUP (`9550`) |
+| `patterns.ais_usd` | Tarjeta AIS en USD (`9560`) |
 | `issuers.<BANCO>` | Tarjetas RED de ese banco |
 
 Además, `variants` da el producto de los prefijos de 6 dígitos que se distinguen de su prefijo de 4, como `976004`, la Clásica Empresarial.
@@ -203,7 +210,7 @@ const luhn = (n) => {
 
 const normalize = (raw) => String(raw ?? '').replace(new RegExp(v.normalize.strip_pattern, 'g'), '')
 
-// kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial
+// kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial | ais_cup | ais_usd
 const isCubanCard = (raw, kind = 'any') => {
   if (typeof kind !== 'string' || !Object.hasOwn(v.patterns, kind)) {
     throw new RangeError(`kind inválido: ${String(kind)}. Usa: ${Object.keys(v.patterns).join(', ')}`)
@@ -303,7 +310,7 @@ function normalizeCard(string $raw, array $v): string {
     return preg_replace('/' . $v['normalize']['strip_pattern'] . '/', '', $raw);
 }
 
-// $kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial
+// $kind: any | red | cup | usd | usd_mlc | clasica | clasica_empresarial | ais_cup | ais_usd
 function isCubanCard(string $raw, array $v, string $kind = 'any'): bool {
     if (!array_key_exists($kind, $v['patterns'])) {
         throw new InvalidArgumentException('kind inválido: ' . $kind . '. Usa: ' . implode(', ', array_keys($v['patterns'])));
@@ -337,19 +344,19 @@ Cada prefijo de `prefixes.json` tiene esta forma:
   "prefix": "9240",
   "network": "RED",
   "currency": "USD",
-  "mlc_backed": true,
-  "product": "Ahorro de personas naturales",
+  "mlc_backed": false,
+  "product": "Prepago en USD",
   "aliases": ["Tropical"],
   "issuers": ["BANDEC"],
-  "sources": ["bandec_post", "community_catalog"],
-  "notes": "BANDEC la agrupa con las tarjetas en USD con respaldo en MLC. El catálogo comunitario la llama «Tropical» y la clasifica como prepago en USD."
+  "sources": ["bandec_post", "lahabana_bandec", "community_catalog", "directoriocubano_tropical"],
+  "notes": "Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC."
 }
 ```
 
 | Campo | Qué es |
 |---|---|
 | `prefix` | Los 4 primeros dígitos |
-| `network` | `RED`, o `null` si el producto no sigue la estructura RED (la Clásica) |
+| `network` | `RED`, o `null` si el producto no sigue la estructura RED (la Clásica y las AIS) |
 | `currency` | `CUP` o `USD` |
 | `mlc_backed` | `true` si es USD con respaldo en MLC, como lo llama BANDEC. `null` si no se sabe |
 | `product` | Producto o propósito. `null` si todavía no se ha identificado |
@@ -389,6 +396,9 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.3.0/validators.json
 | **T** | Titulares de tarjeta | Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598); las tarjetas BANDEC 9210 y 9211; la 9200 en BANDEC y Banco Metropolitano; la 9205 de ahorro en BPA y Banco Metropolitano; la 9224, la 9227 y la 9234 en Banco Metropolitano; la 9238 de ahorro en BPA, y la Clásica 976003 (issues #1, #2, #4, #8, #9, #10, #12, #14 y #18; PR #6). |
 | **F** | [Kubaforum: «Überweisung mit Sparkasse auf BPA-Konto»](https://www.kubaforum.eu/artikel/ueberweisung-mit-sparkasse-auf-bpa-konto.35643/) | Hilo de foro en alemán (diciembre de 2023). Da los dígitos 5–8 de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598). Aportado en el issue #3. |
 | **CE** | [Informa Financiera CIMEX S.A. sobre ampliación de posibilidades de uso de tarjeta Clásica Empresarial](http://www.cubadebate.cu/noticias/2025/04/04/informa-financiera-cimex-s-a-sobre-ampliacion-de-posibilidades-de-uso-de-tarjeta-clasica-empresarial/) | Confirma la existencia de la Clásica Empresarial de FINCIMEX; no publica el prefijo 976004. |
+| **A** | [Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)](https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais) | Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD). Aportada en el PR #16. |
+| **FX** | [FINCIMEX: «Aclaración a nuestros clientes»](https://www.facebook.com/fincimex/posts/aclaraci%C3%B3n-a-nuestros-clienteslos-clientes-de-tarjetas-ais-no-tendr%C3%A1n-que-presen/752525275358296/) | Aviso en la cuenta oficial de FINCIMEX en Facebook: las tarjetas AIS en CUC pasan a CUP. Aportada en el PR #16. |
+| **D** | [¿Conoces la tarjeta Tropical en dólares de Cuba? Banco informa sobre este producto (Directorio Cubano, 2025)](https://www.directoriocubano.info/panorama/conoces-la-tarjeta-tropical-en-dolares-de-cuba-banco-informa-sobre-este-producto/) | La 9240 («Tropical») es la tarjeta prepago en dólares de BANDEC, distinta de la 9225 y la 9235, conocidas como tarjetas en MLC. Aportada en el PR #16. |
 | **ISO** | [ISO/IEC 7812-1: números de identificación de tarjetas](https://en.wikipedia.org/wiki/ISO/IEC_7812) | El último dígito de un número de tarjeta es un dígito de control Luhn. |
 <!-- sources:end -->
 
@@ -396,7 +406,6 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.3.0/validators.json
 
 - El producto de los prefijos marcados como _Sin identificar_ en las tablas.
 - Los dígitos 7–8 de BICSA.
-- Si `9240` («Tropical») es una cuenta en USD con respaldo en MLC, como la agrupa BANDEC, o un prepago en USD, como dice el catálogo comunitario.
 - La entidad emisora de la Clásica y qué significan sus dígitos 5–8.
 - Una tarjeta Clásica Empresarial que confirme el `976004`. Hoy sale de la lógica de Transfermóvil analizada en el [#5](https://github.com/qvapay/cuban_cards_prefixes/issues/5).
 - El enlace a la publicación original de BANDEC (el portal del Gobierno de La Habana la reproduce: fuente **H**).
@@ -413,11 +422,12 @@ Este catálogo crece con lo que comparte la comunidad. Muchos reportes llegan de
 | [@armandofcom](https://github.com/armandofcom) | El código `9598` de Banco Metropolitano, con el hilo de Kubaforum que lo documenta ([#3](https://github.com/qvapay/cuban_cards_prefixes/issues/3)). |
 | [@Y4S3L23](https://github.com/Y4S3L23) | La confirmación, con su propia tarjeta, del `9598` y de la `9234` en Banco Metropolitano ([#4](https://github.com/qvapay/cuban_cards_prefixes/issues/4)). |
 | [@livegnik97](https://github.com/livegnik97) | La pista de la Clásica Empresarial (`976004`) a partir de la lógica de Transfermóvil ([#5](https://github.com/qvapay/cuban_cards_prefixes/issues/5)) y el enlace oficial a la nota de BANDEC ([#11](https://github.com/qvapay/cuban_cards_prefixes/issues/11)). |
-| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)). |
+| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)), las tarjetas AIS (`9550` y `9560`) con el aviso de FINCIMEX sobre su paso a CUP, y la Tropical (`9240`) como prepago en USD ([#16](https://github.com/qvapay/cuban_cards_prefixes/pull/16)). |
 | [@Chichimokers](https://github.com/Chichimokers) | Las variantes por los dígitos 5–6 y la Clásica Empresarial (`976004`), con el aviso de CIMEX que la documenta ([#7](https://github.com/qvapay/cuban_cards_prefixes/pull/7)), y la `9227` en Banco Metropolitano ([#8](https://github.com/qvapay/cuban_cards_prefixes/issues/8)). |
 | [@xero-q](https://github.com/xero-q) | La `9205` de ahorro en Banco Metropolitano, confirmada con su tarjeta ([#18](https://github.com/qvapay/cuban_cards_prefixes/issues/18)). |
 | [@rblez](https://github.com/rblez) | El [Explorador de tarjetas cubanas](https://rblez.github.io/explorador-tarjetas-cubanas/), desde el que llegan muchos reportes, y la `9200` en BANDEC ([#9](https://github.com/qvapay/cuban_cards_prefixes/issues/9)). |
 | [@vcarv7](https://github.com/vcarv7) | La `9224` en Banco Metropolitano, confirmada con su tarjeta ([#10](https://github.com/qvapay/cuban_cards_prefixes/issues/10)). |
+| [@ecejas](https://github.com/ecejas) | El arreglo de los ejemplos JavaScript y PHP del README, que aceptaban cualquier número con un `kind` desconocido, y las pruebas que ahora los ejecutan en CI ([#21](https://github.com/qvapay/cuban_cards_prefixes/pull/21)). |
 | [@aalvarezcbr](https://github.com/aalvarezcbr) | La `9205` de ahorro en BPA, confirmada con su tarjeta ([#12](https://github.com/qvapay/cuban_cards_prefixes/issues/12)). |
 | [@earlyhp-qvapay](https://github.com/earlyhp-qvapay) | La `9200` en Banco Metropolitano y la pista de que son las antiguas tarjetas en CUC ([#14](https://github.com/qvapay/cuban_cards_prefixes/issues/14)). |
 
@@ -446,7 +456,7 @@ Cuando integramos tu aporte, apareces en [Quién ha aportado](#-quién-ha-aporta
 An open catalog of **Cuban bank card prefixes**: which product, currency and bank sit behind the first digits of a Cuban card, plus ready-to-use validators for any language.
 
 - [`prefixes.json`](prefixes.json): the catalog (card structure, banks, prefixes and sources). Texts are in Spanish.
-- [`validators.json`](validators.json): regular expressions generated from the catalog, by currency (`cup`, `usd`, `usd_mlc`, `clasica`, `clasica_empresarial`, `any`) and by bank (`BANDEC`, `BPA`, `METROPOLITANO`, `BICSA`), plus a `variants` map for 6-digit prefixes such as `976004` (Clásica Empresarial).
+- [`validators.json`](validators.json): regular expressions generated from the catalog, by currency (`cup`, `usd`, `usd_mlc`, `clasica`, `clasica_empresarial`, `ais_cup`, `ais_usd`, `any`) and by bank (`BANDEC`, `BPA`, `METROPOLITANO`, `BICSA`), plus a `variants` map for 6-digit prefixes such as `976004` (Clásica Empresarial).
 - [`schema.json`](schema.json): JSON Schema 2020-12 for `prefixes.json`.
 
 Cards on the Cuban **RED** network have 16 digits: digits 1–2 are the network (`92`), 3–4 the product and currency, 5–8 the bank (`0699` BANDEC, `1299` BPA, `9598` Banco Metropolitano), 9–15 the account and 16 a Luhn check digit.

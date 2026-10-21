@@ -2,6 +2,25 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.5.0 · 2026-10-21
+
+### Cambia lo que aceptan los patrones
+
+- **Tropical (`9240`)**: pasa a ser un prepago en USD **sin** respaldo en MLC (`mlc_backed: false`, producto «Prepago en USD»). `patterns.usd_mlc` ya no la acepta; `patterns.usd` y `patterns.any` la siguen aceptando. Fuente nueva **D** (Directorio Cubano, 2025, con información de BANDEC). La nota de BANDEC (fuentes **B** y **H**) la agrupaba con las de respaldo en MLC; la contradicción queda en las notas.
+- **AIS**: `patterns.any`, `cup` y `usd` aceptan ahora las tarjetas AIS.
+
+### Datos nuevos
+
+- Emisor **AIS** (American International Services, de CIMEX) y sus tarjetas `9550` (CUP) y `9560` (USD), con `network: null` como la Clásica: sus dígitos 5–8 no son un código de banco. Fuentes nuevas **A** (Cimex responde sobre las AIS, Directorio Cubano, 2020) y **FX** (aviso oficial de FINCIMEX sobre el paso de las AIS en CUC a CUP).
+- Claves nuevas `patterns.ais_cup` y `patterns.ais_usd`.
+- El formulario de issues añade AIS.
+- Gracias a [@drlorente97](https://github.com/drlorente97) ([#16](https://github.com/qvapay/cuban_cards_prefixes/pull/16), continuación del [#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)).
+
+### Build
+
+- El build falla si un prefijo que no es RED no tiene producto o si dos claves de patrón coinciden, y autocomprueba que cada producto que no es RED cumple solo su patrón, no cumple `red`, y cumple `cup` o `usd` según su moneda.
+- `npm test` ejecuta los ejemplos JavaScript y PHP del README contra los JSON locales, y `npm run check` lo incluye en CI. Los ejemplos lanzan un error si `kind` no es una clave de `patterns`: antes aceptaban cualquier número con un `kind` desconocido. Gracias a [@ecejas](https://github.com/ecejas) ([#21](https://github.com/qvapay/cuban_cards_prefixes/pull/21)).
+
 ## 0.4.0 · 2026-10-21
 
 ### Fuente nueva

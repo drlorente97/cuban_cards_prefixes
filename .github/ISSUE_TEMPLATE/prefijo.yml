@@ -25,6 +25,7 @@ body:
         - Banco Metropolitano
         - BICSA
         - FINCIMEX (Clásica)
+        - AIS
         - Otro
         - No lo sé
     validations:

@@ -64,6 +64,10 @@ const nonRed = data.prefixes.filter(p => p.network !== 'RED')
 const by = (fn) => ({ red: redProducts.filter(fn), other: nonRed.filter(fn) })
 const group = ({ red: r, other: o }) => anchor([red(r), other(o)])
 
+for (const p of nonRed) if (!p.product) fail(`${p.prefix}: un prefijo que no es RED necesita producto (da nombre a su patrón)`)
+const nonRedKeys = nonRed.map(p => productKey(p.product ?? ''))
+nonRedKeys.forEach((k, i) => { if (nonRedKeys.indexOf(k) !== i || ['any', 'red', 'cup', 'usd', 'usd_mlc'].includes(k)) fail(`la clave de patrón ${k} está repetida`) })
+
 const cup = by(p => p.currency === 'CUP')
 const usd = by(p => p.currency === 'USD')
 const usdMlc = by(p => p.currency === 'USD' && p.mlc_backed === true)
@@ -128,6 +132,14 @@ for (const p of nonRed) expect(fill(p.prefix), 'any', true, p.prefix)
 expect(fill('9205' + '7777'), 'any', false, 'un banco desconocido')
 expect(fill('9299' + redIssuers[0].code), 'any', false, 'un producto desconocido')
 expect(fill('9205' + redIssuers[0].code).slice(1), 'any', false, '15 dígitos')
+for (const p of nonRed) {
+  const key = productKey(p.product)
+  expect(fill(p.prefix), key, true, p.prefix)
+  for (const o of nonRed.filter(o => o !== p)) expect(fill(o.prefix), key, false, o.prefix)
+  expect(fill(p.prefix), 'red', false, `${p.prefix}, que no es RED`)
+  expect(fill(p.prefix), 'cup', p.currency === 'CUP', p.prefix)
+  expect(fill(p.prefix), 'usd', p.currency === 'USD', p.prefix)
+}
 
 // La Clásica (976003) la cubre el patrón del prefijo; 976004, el de su variante.
 expect(fill('976003'), 'clasica', true, '976003 (Clásica)')
