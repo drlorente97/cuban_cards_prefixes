@@ -1,6 +1,6 @@
 {
   "$schema": "./schema.json",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "updated_at": "2026-10-21",
   "country": "CU",
   "card_length": 16,
@@ -23,7 +23,8 @@
     { "id": "BPA", "name": "Banco Popular de Ahorro", "network": "RED", "code": "1299", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa"], "notes": null },
     { "id": "METROPOLITANO", "name": "Banco Metropolitano", "network": "RED", "code": "9598", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa"], "notes": "El catálogo comunitario solo da los dígitos 5–6 (95)." },
     { "id": "BICSA", "name": "Banco Internacional de Comercio S.A.", "network": "RED", "code": "04", "sources": ["community_catalog"], "notes": "Código parcial: solo se conocen los dígitos 5–6." },
-    { "id": "FINCIMEX", "name": "Financiera CIMEX S.A.", "network": null, "code": null, "sources": ["community_catalog"], "notes": "Emisora de la tarjeta Clásica, que no sigue la estructura RED." }
+    { "id": "FINCIMEX", "name": "Financiera CIMEX S.A.", "network": null, "code": null, "sources": ["community_catalog"], "notes": "Emisora de la tarjeta Clásica, que no sigue la estructura RED." },
+    { "id": "AIS", "name": "American International Services", "network": null, "code": null, "sources": ["cimex_ais_2020", "fincimex_ais_cup"], "notes": "Empresa de CIMEX que emite las tarjetas AIS. No siguen la estructura RED." }
   ],
   "prefixes": [
     { "prefix": "9200", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": null, "aliases": [], "issuers": [], "sources": ["community_catalog"], "notes": "El catálogo comunitario la describe como «Tarjeta en CUP», sin propósito concreto." },
@@ -49,12 +50,14 @@
     { "prefix": "9228", "network": "RED", "currency": "USD", "mlc_backed": true, "product": "Cooperativas / MIPYMES", "aliases": [], "issuers": ["BANDEC"], "sources": ["bandec_post", "community_catalog"], "notes": null },
     { "prefix": "9229", "network": "RED", "currency": "USD", "mlc_backed": true, "product": "Otras entidades", "aliases": [], "issuers": ["BANDEC"], "sources": ["bandec_post", "community_catalog"], "notes": "El catálogo comunitario la describe como «Personas jurídicas»." },
     { "prefix": "9235", "network": "RED", "currency": "USD", "mlc_backed": true, "product": "Ahorro de personas naturales", "aliases": [], "issuers": ["BANDEC"], "sources": ["bandec_post", "community_catalog"], "notes": null },
-    { "prefix": "9240", "network": "RED", "currency": "USD", "mlc_backed": true, "product": "Ahorro de personas naturales", "aliases": ["Tropical"], "issuers": ["BANDEC"], "sources": ["bandec_post", "community_catalog"], "notes": "BANDEC la agrupa con las tarjetas en USD con respaldo en MLC. El catálogo comunitario la llama «Tropical» y la clasifica como prepago en USD." },
+    { "prefix": "9240", "network": "RED", "currency": "USD", "mlc_backed": false, "product": "Prepago en USD", "aliases": ["Tropical"], "issuers": ["BANDEC"], "sources": ["bandec_post", "community_catalog", "directoriocubano_tropical"], "notes": "Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. La publicación de BANDEC la agrupaba con las tarjetas en USD con respaldo en MLC. Solo se conoce en BANDEC." },
     { "prefix": "9245", "network": "RED", "currency": "USD", "mlc_backed": true, "product": null, "aliases": [], "issuers": [], "sources": ["community_catalog"], "notes": null },
     { "prefix": "9250", "network": "RED", "currency": "USD", "mlc_backed": true, "product": "Cooperativas / MIPYMES", "aliases": [], "issuers": [], "sources": ["community_catalog"], "notes": null },
     { "prefix": "9760", "network": null, "currency": "USD", "mlc_backed": false, "product": "Clásica", "aliases": [], "issuers": ["FINCIMEX"], "variants": [
       { "prefix": "976004", "product": "Clásica Empresarial", "aliases": [], "sources": ["cubadebate_clasica_empresarial"], "notes": "CIMEX confirma que el producto existe, pero no publica su prefijo. El 976004 sale de la lógica de Transfermóvil analizada en el issue #5 y lo aporta el PR #7. Falta confirmarlo con una tarjeta." }
-    ], "sources": ["community_catalog", "cardholder_report"], "notes": "No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial)." }
+    ], "sources": ["community_catalog", "cardholder_report"], "notes": "No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial)." },
+    { "prefix": "9550", "network": null, "currency": "CUP", "mlc_backed": false, "product": "AIS CUP", "aliases": [], "issuers": ["AIS"], "sources": ["cimex_ais_2020", "fincimex_ais_cup"], "notes": "Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX." },
+    { "prefix": "9560", "network": null, "currency": "USD", "mlc_backed": null, "product": "AIS USD", "aliases": [], "issuers": ["AIS"], "sources": ["cimex_ais_2020"], "notes": null }
   ],
   "sources": [
     { "id": "bandec_post", "short": "B", "kind": "social_post", "title": "¿Sabías que los dígitos de tu tarjeta Bandec revelan su propósito?", "url": null, "notes": "Publicación atribuida a BANDEC sobre los dígitos 3–4 de sus tarjetas." },
@@ -62,6 +65,9 @@
     { "id": "cardholder_report", "short": "T", "kind": "cardholder_report", "title": "Titulares de tarjeta", "url": null, "notes": "Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598), las tarjetas BANDEC 9210 y 9211, la 9234 de nómina en BANDEC y Banco Metropolitano, la 9238 de ahorro en BPA y la Clásica 976003 (issues #1, #2 y #4; PR #6)." },
     { "id": "kubaforum_bpa", "short": "F", "kind": "social_post", "title": "Kubaforum: «Überweisung mit Sparkasse auf BPA-Konto»", "url": "https://www.kubaforum.eu/artikel/ueberweisung-mit-sparkasse-auf-bpa-konto.35643/", "notes": "Hilo de foro en alemán (diciembre de 2023). Da los dígitos 5–8 de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598). Aportado en el issue #3." },
     { "id": "cubadebate_clasica_empresarial", "short": "CE", "kind": "official", "title": "Informa Financiera CIMEX S.A. sobre ampliación de posibilidades de uso de tarjeta Clásica Empresarial", "url": "http://www.cubadebate.cu/noticias/2025/04/04/informa-financiera-cimex-s-a-sobre-ampliacion-de-posibilidades-de-uso-de-tarjeta-clasica-empresarial/", "notes": "Confirma la existencia de la Clásica Empresarial de FINCIMEX; no publica el prefijo 976004." },
+    { "id": "cimex_ais_2020", "short": "A", "kind": "social_post", "title": "Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)", "url": "https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais", "notes": "Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD)." },
+    { "id": "fincimex_ais_cup", "short": "FX", "kind": "official", "title": "FINCIMEX: «Aclaración a nuestros clientes»", "url": "https://www.facebook.com/fincimex/posts/aclaraci%C3%B3n-a-nuestros-clienteslos-clientes-de-tarjetas-ais-no-tendr%C3%A1n-que-presen/752525275358296/", "notes": "Aviso en la cuenta oficial de FINCIMEX en Facebook: las tarjetas AIS en CUC pasan a CUP." },
+    { "id": "directoriocubano_tropical", "short": "D", "kind": "social_post", "title": "¿Conoces la tarjeta Tropical en dólares de Cuba? Banco informa sobre este producto (Directorio Cubano, 2025)", "url": "https://www.directoriocubano.info/panorama/conoces-la-tarjeta-tropical-en-dolares-de-cuba-banco-informa-sobre-este-producto/", "notes": "La 9240 («Tropical») es la tarjeta prepago en dólares de BANDEC, distinta de la 9225 y la 9235, conocidas como tarjetas en MLC." },
     { "id": "iso_7812", "short": "ISO", "kind": "standard", "title": "ISO/IEC 7812-1: números de identificación de tarjetas", "url": "https://en.wikipedia.org/wiki/ISO/IEC_7812", "notes": "El último dígito de un número de tarjeta es un dígito de control Luhn." }
   ]
 }

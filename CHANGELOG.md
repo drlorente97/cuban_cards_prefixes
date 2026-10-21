@@ -2,6 +2,20 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.4.0 · 2026-10-21
+
+### Cambia lo que aceptan los patrones
+
+- **Tropical (`9240`)**: es un prepago en USD **sin** respaldo en MLC (`mlc_backed: false`, producto «Prepago en USD»). `patterns.usd_mlc` ya no la acepta; `patterns.usd` y `patterns.any` la siguen aceptando. Fuente nueva **D** (Directorio Cubano, 2025).
+- **AIS**: `patterns.any`, `cup` y `usd` aceptan ahora las tarjetas AIS.
+
+### Datos nuevos
+
+- Emisor **AIS** (American International Services) y sus tarjetas `9550` (CUP) y `9560` (USD), con `network: null` como la Clásica. Fuentes nuevas **A** (Cimex, 2020) y **FX** (aviso oficial de FINCIMEX sobre el paso de las AIS en CUC a CUP).
+- Claves nuevas `patterns.ais_cup` y `patterns.ais_usd`. Las claves de los productos que no son RED usan `_` en lugar de espacios.
+- El formulario de issues añade FINCIMEX (Clásica) y AIS.
+- Gracias a [@drlorente97](https://github.com/drlorente97) ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)).
+
 ## 0.3.0 · 2026-10-21
 
 ### Novedades

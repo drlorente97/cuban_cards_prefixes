@@ -18,7 +18,7 @@ npm run check   # fail if prefixes.json is inconsistent or validators.json/READM
 `prefixes.json` is the **only hand-edited source of truth**. `scripts/build.mjs` reads it and:
 
 1. **Validates consistency**: 4-digit unique prefixes, RED prefixes start with `structure.RED[0].value` (`92`), currency is `CUP`/`USD`, CUP is never `mlc_backed`, and every `issuers`/`sources` id referenced exists.
-2. **Generates `validators.json`**: anchored regexes under `patterns` (`any`, `red`, `cup`, `usd`, `usd_mlc`, plus one key per non-RED product, named after its `product` lowercased with accents removed and spaces turned into `_`, e.g. `Clásica` → `clasica`, and one per variant whose product differs from its parent's, e.g. `Clásica Empresarial` → `clasica_empresarial`), under `issuers` (one per RED bank with a `code`) and under `variants` (6-digit prefix → `product`, `aliases`, `issuers`). RED patterns are `92` + product digits 3–4 + bank code (digits 5–8) + remaining digits. A bank `code` shorter than 4 digits is a partial code and gets padded with `[0-9]`. Patterns use `[0-9]`, not `\d`, on purpose (non-ASCII digits in Python and other engines).
+2. **Generates `validators.json`**: anchored regexes under `patterns` (`any`, `red`, `cup`, `usd`, `usd_mlc`, plus one key per non-RED product, named after its `product` lowercased with accents removed and spaces turned into `_`, e.g. `Clásica` → `clasica`, `AIS CUP` → `ais_cup`; the build fails if two keys collide) and under `issuers` (one per RED bank with a `code`). RED patterns are `92` + product digits 3–4 + bank code (digits 5–8) + remaining digits. A bank `code` shorter than 4 digits is a partial code and gets padded with `[0-9]`. Patterns use `[0-9]`, not `\d`, on purpose (non-ASCII digits in Python and other engines).
 3. **Self-tests** the generated regexes against synthetic Luhn-valid numbers for every product × bank combination, plus negative cases.
 4. **Rewrites README.md** between `<!-- name:start -->` / `<!-- name:end -->` markers for `badges`, `banks`, `prefixes` and `sources`. Never hand-edit inside those markers. The build fails if a marker pair is missing.
 
@@ -46,7 +46,7 @@ Never edit `validators.json` by hand. After changing `prefixes.json` or `build.m
 
 - Every prefix and issuer must cite at least one id from the `sources` list at the end of `prefixes.json`. Unknown values are `null` (e.g. `product`, `mlc_backed`) rather than guessed. Contradictions between sources go in `notes`.
 - `issuers` on a prefix means banks where a source *confirms* that product, not every bank that could issue it. The regexes accept any known RED bank for any RED product.
-- The Clásica (`9760`, `network: null`) does not follow the RED structure; its digits 5–8 are not a bank code.
+- The Clásica (`9760`) and the AIS cards (`9550`, `9560`) have `network: null`: they do not follow the RED structure, and their digits 5–8 are not a bank code.
 - `variants` (optional, only on non-RED prefixes) lists 6-digit prefixes that identify a different product, e.g. `976004` Clásica Empresarial. The parent's pattern still accepts them, so adding a variant never narrows an existing pattern.
 - All content, notes, build messages and the README are in Spanish (the README has a short English summary at the end). Keep new text in Spanish.
 - Never write a full card number anywhere (data, commits, issues, examples). Use at most the first 8 digits, or synthetic numbers like those the self-test generates.

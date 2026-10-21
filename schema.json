@@ -70,7 +70,7 @@
         "additionalProperties": false,
         "properties": {
           "prefix": { "type": "string", "pattern": "^\\d{4}$", "description": "Dígitos 1–4." },
-          "network": { "enum": ["RED", null] },
+          "network": { "enum": ["RED", null], "description": "null = no sigue la estructura RED (la Clásica y las AIS)." },
           "currency": { "enum": ["CUP", "USD"] },
           "mlc_backed": { "type": ["boolean", "null"], "description": "USD con respaldo en MLC, en la terminología de BANDEC. null = no se sabe." },
           "product": { "type": ["string", "null"], "description": "null = producto sin identificar." },
@@ -120,7 +120,7 @@
     }
   },
   "$defs": {
-    "issuerId": { "enum": ["BANDEC", "BPA", "METROPOLITANO", "BICSA", "FINCIMEX"] },
+    "issuerId": { "enum": ["BANDEC", "BPA", "METROPOLITANO", "BICSA", "FINCIMEX", "AIS"] },
     "sourceList": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
   }
 }
