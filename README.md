@@ -48,7 +48,9 @@ new RegExp(v.issuers.BANDEC).test(n)   // true: es de BANDEC
 // Falta el dígito de control: ver «Validar un número»
 ```
 
-`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.3.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
+`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.4.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
+
+Cada push a `main` purga la caché de jsDelivr, así que `@main` refleja el cambio en pocos minutos en lugar de las 12 horas que tarda por defecto.
 
 | Fichero | Qué contiene |
 |---|---|
@@ -382,7 +384,7 @@ Hay apps que leen estos ficheros directamente desde `@main`, así que cuidamos q
 Para que nada cambie sin que lo decidas tú, fija una versión en la URL:
 
 ```text
-https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.3.0/validators.json
+https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.4.0/validators.json
 ```
 
 ## 📚 Fuentes
@@ -463,7 +465,7 @@ Cards on the Cuban **RED** network have 16 digits: digits 1–2 are the network 
 
 To validate a number: strip spaces, hyphens and dots (`normalize.strip_pattern`), match it against a pattern and check the Luhn digit. See the code samples above.
 
-To avoid unannounced changes, pin a version with `@v0.3.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
+To avoid unannounced changes, pin a version with `@v0.4.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
 
 This is a community catalog, not an official source. Never post a full card number in an issue or pull request: the first 8 digits are enough.
 

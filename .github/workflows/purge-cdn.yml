@@ -1,0 +1,28 @@
+name: purge-cdn
+
+# Al cambiar los datos en main, purga la caché de jsDelivr para que @main sirva
+# la versión nueva en minutos en lugar de esperar las 12 horas de caché por defecto.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - prefixes.json
+      - validators.json
+
+permissions: {}
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purgar jsDelivr
+        run: |
+          for file in prefixes.json validators.json; do
+            for ref in "@main" ""; do
+              url="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}${ref}/${file}"
+              echo "Purgando $url"
+              curl --fail --silent --show-error --retry 3 --retry-delay 5 "$url"
+              echo
+            done
+          done

@@ -42,6 +42,10 @@ Casi todos estos reportes llegaron desde el [Explorador de tarjetas cubanas](htt
 
 - Los patrones no cambian: ya aceptaban cualquier banco RED para cualquier producto RED.
 
+### Distribución
+
+- Cada push a `main` purga la caché de jsDelivr, así que `@main` refleja los cambios en minutos en lugar de hasta 12 horas.
+
 ## 0.3.1 · 2026-10-21
 
 ### Datos nuevos
