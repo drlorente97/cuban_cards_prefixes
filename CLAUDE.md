@@ -4,13 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A data repository, not an application: an open catalog of Cuban bank card prefixes (product, currency and bank behind the first 4–8 digits of a card) plus regex validators derived from it. It has zero dependencies, needs only Node (CI uses 22), and has no tests beyond the build's own checks. Consumers fetch the JSON files directly from jsDelivr/GitHub `@main`, so whatever lands on `main` is effectively published.
+A data repository, not an application: an open catalog of Cuban bank card prefixes (product, currency and bank behind the first 4–8 digits of a card) plus regex validators derived from it. It has zero package dependencies and builds with Node (CI uses 22). Node's built-in test runner tests the README's JavaScript and PHP examples; PHP tests skip locally if PHP is unavailable but are required in CI. Consumers fetch the JSON files directly from jsDelivr/GitHub `@main`, so whatever lands on `main` is effectively published.
 
 ## Commands
 
 ```sh
 npm run build   # regenerate validators.json and the generated README sections from prefixes.json
-npm run check   # fail if prefixes.json is inconsistent or validators.json/README.md are stale (what CI runs)
+npm run check   # check data consistency and generated files, then run the tests (what CI runs)
+npm test        # test the README's JavaScript/PHP examples with local JSON fixtures, without network access
 ```
 
 ## Data flow
@@ -18,7 +19,7 @@ npm run check   # fail if prefixes.json is inconsistent or validators.json/READM
 `prefixes.json` is the **only hand-edited source of truth**. `scripts/build.mjs` reads it and:
 
 1. **Validates consistency**: 4-digit unique prefixes, RED prefixes start with `structure.RED[0].value` (`92`), currency is `CUP`/`USD`, CUP is never `mlc_backed`, and every `issuers`/`sources` id referenced exists.
-2. **Generates `validators.json`**: anchored regexes under `patterns` (`any`, `red`, `cup`, `usd`, `usd_mlc`, plus one key per non-RED product, named after its `product` lowercased with accents removed and spaces turned into `_`, e.g. `Clásica` → `clasica`, `AIS CUP` → `ais_cup`; the build fails if two keys collide) and under `issuers` (one per RED bank with a `code`). RED patterns are `92` + product digits 3–4 + bank code (digits 5–8) + remaining digits. A bank `code` shorter than 4 digits is a partial code and gets padded with `[0-9]`. Patterns use `[0-9]`, not `\d`, on purpose (non-ASCII digits in Python and other engines).
+2. **Generates `validators.json`**: anchored regexes under `patterns` (`any`, `red`, `cup`, `usd`, `usd_mlc`, plus one key per non-RED product, named after its `product` lowercased with accents removed and spaces turned into `_`, e.g. `Clásica` → `clasica`, `AIS CUP` → `ais_cup`; the build fails if two keys collide, and one per variant whose product differs from its parent's, e.g. `Clásica Empresarial` → `clasica_empresarial`), under `issuers` (one per RED bank with a `code`) and under `variants` (6-digit prefix → `product`, `aliases`, `issuers`). RED patterns are `92` + product digits 3–4 + bank code (digits 5–8) + remaining digits. A bank `code` shorter than 4 digits is a partial code and gets padded with `[0-9]`. Patterns use `[0-9]`, not `\d`, on purpose (non-ASCII digits in Python and other engines).
 3. **Self-tests** the generated regexes against synthetic Luhn-valid numbers for every product × bank combination, plus negative cases.
 4. **Rewrites README.md** between `<!-- name:start -->` / `<!-- name:end -->` markers for `badges`, `banks`, `prefixes` and `sources`. Never hand-edit inside those markers. The build fails if a marker pair is missing.
 
@@ -27,7 +28,7 @@ Never edit `validators.json` by hand. After changing `prefixes.json` or `build.m
 ## Things that are not wired to the build
 
 - `schema.json` (JSON Schema 2020-12 for `prefixes.json`) is **not** validated by the build. If you add or change fields in `prefixes.json`, update the schema by hand.
-- The JS/Python/PHP samples in the README's "Validar un número" section and the Quick start are hand-written and use `validators.json` keys (`normalize.strip_pattern`, `patterns.*`, `issuers.*`). Renaming a key or a product name (which renames its pattern key) breaks them and external consumers.
+- The JS/Python/PHP samples in the README's "Validar un número" section and the Quick start are hand-written and use `validators.json` keys (`normalize.strip_pattern`, `patterns.*`, `issuers.*`). `npm test` extracts the JS and PHP ones from the README and runs them against the local JSON, so a broken sample fails CI; the Python one is not tested. Renaming a key or a product name (which renames its pattern key) breaks them and external consumers.
 - The bank dropdown in `.github/ISSUE_TEMPLATE/prefijo.yml` and the `issuerName` display map in `build.mjs` (special-cases `METROPOLITANO`) are maintained by hand when issuers change.
 
 ## Versioning and contributors

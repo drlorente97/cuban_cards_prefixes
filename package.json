@@ -1,12 +1,13 @@
 {
   "name": "cuban-cards-prefixes",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Prefijos de tarjetas bancarias cubanas: producto, moneda y banco, con validadores en JSON",
   "type": "module",
   "license": "MIT",
   "repository": "github:qvapay/cuban_cards_prefixes",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs --check"
+    "check": "node scripts/build.mjs --check && npm test",
+    "test": "node --test"
   }
 }

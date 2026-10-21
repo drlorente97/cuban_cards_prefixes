@@ -2,19 +2,55 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
-## 0.4.0 · 2026-10-21
+## 0.5.0 · 2026-10-21
 
 ### Cambia lo que aceptan los patrones
 
-- **Tropical (`9240`)**: es un prepago en USD **sin** respaldo en MLC (`mlc_backed: false`, producto «Prepago en USD»). `patterns.usd_mlc` ya no la acepta; `patterns.usd` y `patterns.any` la siguen aceptando. Fuente nueva **D** (Directorio Cubano, 2025).
+- **Tropical (`9240`)**: pasa a ser un prepago en USD **sin** respaldo en MLC (`mlc_backed: false`, producto «Prepago en USD»). `patterns.usd_mlc` ya no la acepta; `patterns.usd` y `patterns.any` la siguen aceptando. Fuente nueva **D** (Directorio Cubano, 2025, con información de BANDEC). La nota de BANDEC (fuentes **B** y **H**) la agrupaba con las de respaldo en MLC; la contradicción queda en las notas.
 - **AIS**: `patterns.any`, `cup` y `usd` aceptan ahora las tarjetas AIS.
 
 ### Datos nuevos
 
-- Emisor **AIS** (American International Services) y sus tarjetas `9550` (CUP) y `9560` (USD), con `network: null` como la Clásica. Fuentes nuevas **A** (Cimex, 2020) y **FX** (aviso oficial de FINCIMEX sobre el paso de las AIS en CUC a CUP).
-- Claves nuevas `patterns.ais_cup` y `patterns.ais_usd`. Las claves de los productos que no son RED usan `_` en lugar de espacios.
-- El formulario de issues añade FINCIMEX (Clásica) y AIS.
-- Gracias a [@drlorente97](https://github.com/drlorente97) ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)).
+- Emisor **AIS** (American International Services, de CIMEX) y sus tarjetas `9550` (CUP) y `9560` (USD), con `network: null` como la Clásica: sus dígitos 5–8 no son un código de banco. Fuentes nuevas **A** (Cimex responde sobre las AIS, Directorio Cubano, 2020) y **FX** (aviso oficial de FINCIMEX sobre el paso de las AIS en CUC a CUP).
+- Claves nuevas `patterns.ais_cup` y `patterns.ais_usd`.
+- El formulario de issues añade AIS.
+- Gracias a [@drlorente97](https://github.com/drlorente97) ([#16](https://github.com/qvapay/cuban_cards_prefixes/pull/16), continuación del [#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)).
+
+### Build
+
+- El build falla si un prefijo que no es RED no tiene producto o si dos claves de patrón coinciden, y autocomprueba que cada producto que no es RED cumple solo su patrón, no cumple `red`, y cumple `cup` o `usd` según su moneda.
+- `npm test` ejecuta los ejemplos JavaScript y PHP del README contra los JSON locales, y `npm run check` lo incluye en CI. Los ejemplos lanzan un error si `kind` no es una clave de `patterns`: antes aceptaban cualquier número con un `kind` desconocido. Gracias a [@ecejas](https://github.com/ecejas) ([#21](https://github.com/qvapay/cuban_cards_prefixes/pull/21)).
+
+## 0.4.0 · 2026-10-21
+
+### Fuente nueva
+
+- **H**: [«Cómo identificar tarjetas bancarias en Cuba por sus dígitos»](https://www.lahabana.gob.cu/post_detalles/es/29956/como-identificar-tarjetas-bancarias-en-cuba-por-sus-digitos), del Portal del Ciudadano de La Habana. Reproduce la nota de BANDEC (fuente **B**), que hasta ahora no tenía enlace, así que ahora todos los prefijos de esa nota citan una fuente oficial con URL. Gracias a [@livegnik97](https://github.com/livegnik97) ([#11](https://github.com/qvapay/cuban_cards_prefixes/issues/11)).
+
+### Datos nuevos
+
+- `9200`: confirmada en BANDEC por [@rblez](https://github.com/rblez) ([#9](https://github.com/qvapay/cuban_cards_prefixes/issues/9)) y en Banco Metropolitano por [@earlyhp-qvapay](https://github.com/earlyhp-qvapay) ([#14](https://github.com/qvapay/cuban_cards_prefixes/issues/14)), que además cuenta que son las antiguas tarjetas en CUC convertidas a CUP; queda anotado a la espera de otra fuente.
+- `9205`: Ahorro, confirmada también en BPA por [@aalvarezcbr](https://github.com/aalvarezcbr) ([#12](https://github.com/qvapay/cuban_cards_prefixes/issues/12)).
+- `9224`: confirmada en Banco Metropolitano por [@vcarv7](https://github.com/vcarv7) ([#10](https://github.com/qvapay/cuban_cards_prefixes/issues/10)).
+- `9227`: confirmada en Banco Metropolitano por [@Chichimokers](https://github.com/Chichimokers) ([#8](https://github.com/qvapay/cuban_cards_prefixes/issues/8)).
+- `9250`: BANDEC la incluye en su nota junto a la `9228` (fuente **H**), así que pasa a estar confirmada en BANDEC.
+- `9240`: la nota de BANDEC también la llama «Tropical»; queda en las notas.
+
+Casi todos estos reportes llegaron desde el [Explorador de tarjetas cubanas](https://rblez.github.io/explorador-tarjetas-cubanas/) de [@rblez](https://github.com/rblez), que consume este catálogo en vivo y permite reportar un prefijo con un clic.
+
+### Compatibilidad
+
+- Los patrones no cambian: ya aceptaban cualquier banco RED para cualquier producto RED.
+
+## 0.3.1 · 2026-10-21
+
+### Datos nuevos
+
+- `9205`: Ahorro, confirmada también en Banco Metropolitano con una tarjeta real. Gracias a [@xero-q](https://github.com/xero-q) ([#18](https://github.com/qvapay/cuban_cards_prefixes/issues/18)), que la reportó desde el [Explorador de tarjetas cubanas](https://rblez.github.io/explorador-tarjetas-cubanas/).
+
+### Compatibilidad
+
+- Los patrones no cambian: ya aceptaban cualquier banco RED para cualquier producto RED.
 
 ## 0.3.0 · 2026-10-21
 
