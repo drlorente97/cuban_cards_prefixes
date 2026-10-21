@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.5.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.5.1-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -97,33 +97,35 @@ La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta 
 |:-:|---|---|:-:|
 | **`9200`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9200) ¹ | BANDEC, Metropolitano | C · H · T |
 | **`9202`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9202) | — | C |
-| **`9204`** | Nómina, fondos, ahorro | BANDEC | B · H · C |
-| **`9205`** | Ahorro ² | BANDEC, Metropolitano, BPA | B · H · C · T |
+| **`9204`** | Nómina, fondos, ahorro ² | BANDEC, BPA | B · H · C · T |
+| **`9205`** | Ahorro ³ | BANDEC, Metropolitano, BPA | B · H · C · T |
 | **`9206`** | Jubilación | BANDEC | B · H · C |
 | **`9210`** | Colaboradores | BANDEC | B · H · C · T |
 | **`9211`** | Colaboradores | BANDEC | B · H · C · T |
 | **`9212`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · H · C |
 | **`9213`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · H · C |
 | **`9216`** | Subsidios | BANDEC | B · H · C |
-| **`9224`** | Nómina, fondos, ahorro ³ | BANDEC, Metropolitano | B · H · C · T |
-| **`9227`** | Nómina, fondos, ahorro ⁴ | BANDEC, Metropolitano | B · H · C · T |
+| **`9224`** | Nómina, fondos, ahorro ⁴ | BANDEC, Metropolitano | B · H · C · T |
+| **`9227`** | Nómina, fondos, ahorro ⁵ | BANDEC, Metropolitano | B · H · C · T |
 | **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · H · C |
 | **`9234`** | Nómina | BANDEC, Metropolitano | C · T |
 | **`9237`** | Agricultores / usufructuarios | BANDEC | B · H · C |
 | **`9238`** | Ahorro | BPA | C · T |
 | **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
-| **`9550`** | AIS CUP ⁵ | AIS | A · FX |
+| **`9550`** | AIS CUP ⁶ | AIS | A · FX |
 
 > ¹ **`9200`**: El catálogo comunitario y la nota de BANDEC la describen como «Tarjeta en CUP», sin propósito concreto. Titulares la confirman en BANDEC (issue #9) y en Banco Metropolitano (issue #14). Un titular reporta que son las antiguas tarjetas en CUC, que pasaron a CUP al retirarse esa moneda (issue #14); falta otra fuente que lo confirme.
 >
-> ² **`9205`**: Banco Metropolitano y BPA confirmados por titulares (issues #18 y #12).
+> ² **`9204`**: BPA confirmado por un titular con su tarjeta (9204 1299), reportada directamente al mantenedor el 2026-10-21.
 >
-> ³ **`9224`**: Banco Metropolitano confirmado por un titular en el issue #10.
+> ³ **`9205`**: Banco Metropolitano y BPA confirmados por titulares (issues #18 y #12).
 >
-> ⁴ **`9227`**: Banco Metropolitano confirmado por un titular en el issue #8.
+> ⁴ **`9224`**: Banco Metropolitano confirmado por un titular en el issue #10.
 >
-> ⁵ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
+> ⁵ **`9227`**: Banco Metropolitano confirmado por un titular en el issue #8.
+>
+> ⁶ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
 
 ### 💵 USD con respaldo en MLC
 
@@ -395,7 +397,7 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
 | **B** | ¿Sabías que los dígitos de tu tarjeta Bandec revelan su propósito? | Publicación atribuida a BANDEC sobre los dígitos 3–4 de sus tarjetas. El portal del Gobierno de La Habana la reproduce (fuente H). |
 | **H** | [Cómo identificar tarjetas bancarias en Cuba por sus dígitos](https://www.lahabana.gob.cu/post_detalles/es/29956/como-identificar-tarjetas-bancarias-en-cuba-por-sus-digitos) | Portal del Ciudadano de La Habana (7 de agosto de 2026). Reproduce la nota de BANDEC con los mismos prefijos en CUP y en USD, incluye la 9250 junto a la 9228 y llama «Tropical» a la 9240. Aportado en el issue #11. |
 | **C** | Cuban Bank Card Prefixes v1.0.0 (2026-06-20) | Catálogo comunitario. Para la estructura del número cita el documento «Tomo 2 Digital». |
-| **T** | Titulares de tarjeta | Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598); las tarjetas BANDEC 9210 y 9211; la 9200 en BANDEC y Banco Metropolitano; la 9205 de ahorro en BPA y Banco Metropolitano; la 9224, la 9227 y la 9234 en Banco Metropolitano; la 9238 de ahorro en BPA, y la Clásica 976003 (issues #1, #2, #4, #8, #9, #10, #12, #14 y #18; PR #6). |
+| **T** | Titulares de tarjeta | Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598); las tarjetas BANDEC 9210 y 9211; la 9200 en BANDEC y Banco Metropolitano; la 9204 de nómina en BPA; la 9205 de ahorro en BPA y Banco Metropolitano; la 9224, la 9227 y la 9234 en Banco Metropolitano; la 9238 de ahorro en BPA, y la Clásica 976003 (issues #1, #2, #4, #8, #9, #10, #12, #14 y #18; PR #6). |
 | **F** | [Kubaforum: «Überweisung mit Sparkasse auf BPA-Konto»](https://www.kubaforum.eu/artikel/ueberweisung-mit-sparkasse-auf-bpa-konto.35643/) | Hilo de foro en alemán (diciembre de 2023). Da los dígitos 5–8 de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598). Aportado en el issue #3. |
 | **CE** | [Informa Financiera CIMEX S.A. sobre ampliación de posibilidades de uso de tarjeta Clásica Empresarial](http://www.cubadebate.cu/noticias/2025/04/04/informa-financiera-cimex-s-a-sobre-ampliacion-de-posibilidades-de-uso-de-tarjeta-clasica-empresarial/) | Confirma la existencia de la Clásica Empresarial de FINCIMEX; no publica el prefijo 976004. |
 | **A** | [Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)](https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais) | Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD). Aportada en el PR #16. |
