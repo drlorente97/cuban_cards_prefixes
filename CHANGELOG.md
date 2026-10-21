@@ -2,6 +2,14 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.6.0 · 2026-10-29
+
+### Datos nuevos
+
+- Campo opcional `smpe` en `issuers`: los dígitos 7–9 de cada banco (BANDEC `999`, BPA `997`, Banco Metropolitano `987`). El build comprueba que sus dos primeros dígitos coinciden con los dos últimos de `code`. Los patrones no cambian: todavía no exigen el dígito 9.
+- La tabla de bancos del README muestra los dígitos 7–9.
+- Fuente nueva **S**: titulares que dan los dígitos 7–9 de cada banco.
+
 ## 0.5.2 · 2026-10-21
 
 ### Datos nuevos

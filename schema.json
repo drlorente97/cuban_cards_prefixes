@@ -57,6 +57,11 @@
             "pattern": "^\\d{2,4}$",
             "description": "Código del banco a partir del dígito 5. Si tiene menos de 4 dígitos, el resto no se conoce."
           },
+          "smpe": {
+            "type": "string",
+            "pattern": "^\\d{3}$",
+            "description": "Opcional. Dígitos 7–9 (SMPE), fijos por banco. Sus dos primeros dígitos coinciden con los dos últimos de code. Los patrones no lo exigen."
+          },
           "sources": { "$ref": "#/$defs/sourceList" },
           "notes": { "type": ["string", "null"] }
         }

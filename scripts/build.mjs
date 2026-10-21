@@ -41,6 +41,10 @@ for (const p of data.prefixes) {
 }
 for (const i of data.issuers) {
   if (i.code !== null && !/^\d{2,4}$/.test(i.code)) fail(`${i.id}: el código debe tener de 2 a 4 dígitos`)
+  if (i.smpe !== undefined) {
+    if (!/^\d{3}$/.test(i.smpe)) fail(`${i.id}: el SMPE debe tener 3 dígitos`)
+    else if (i.code?.length === 4 && i.code.slice(2) !== i.smpe.slice(0, 2)) fail(`${i.id}: los dígitos 7–8 de code (${i.code.slice(2)}) y de smpe (${i.smpe.slice(0, 2)}) no coinciden`)
+  }
   for (const id of i.sources) if (!sourceIds.has(id)) fail(`${i.id}: fuente desconocida ${id}`)
 }
 
@@ -187,9 +191,9 @@ const bankRow = (i) => {
   const code = i.code ? `\`${i.code}${'·'.repeat(4 - i.code.length)}\`${i.code.length < 4 ? ' (parcial)' : ''}` : '—'
   const pattern = i.network === 'RED' && i.code ? `\`issuers.${i.id}\`` : data.prefixes.filter(p => p.network !== 'RED' && p.issuers.includes(i.id)).map(p => `\`patterns.${Object.keys(validators.patterns).find(k => validators.patterns[k] === anchor([other([p])]))}\``).join(', ') || '—'
   const label = i.name.includes(issuerName[i.id]) ? `**${i.name}**` : `**${issuerName[i.id]}** · ${i.name}`
-  return `| ${label} | ${code} | ${pattern} |`
+  return `| ${label} | ${code} | ${i.smpe ? `\`${i.smpe}\`` : '—'} | ${pattern} |`
 }
-const bankTable = ['| Banco | Dígitos 5–8 | Patrón |', '|---|:-:|---|', ...data.issuers.map(bankRow)].join('\n')
+const bankTable = ['| Banco | Dígitos 5–8 | Dígitos 7–9 (SMPE) | Patrón |', '|---|:-:|:-:|---|', ...data.issuers.map(bankRow)].join('\n')
 
 const sourcesTable = ['| | Fuente | Qué aporta |', '|:-:|---|---|', ...data.sources.map(s => `| **${s.short}** | ${s.url ? `[${s.title}](${s.url})` : s.title} | ${s.notes ?? ''} |`)].join('\n')
 
