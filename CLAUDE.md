@@ -28,7 +28,7 @@ Never edit `validators.json` by hand. After changing `prefixes.json` or `build.m
 ## Things that are not wired to the build
 
 - `schema.json` (JSON Schema 2020-12 for `prefixes.json`) is **not** validated by the build. If you add or change fields in `prefixes.json`, update the schema by hand.
-- The JS/Python/PHP samples in the README's "Validar un número" section and the Quick start are hand-written and use `validators.json` keys (`normalize.strip_pattern`, `patterns.*`, `issuers.*`). Renaming a key or a product name (which renames its pattern key) breaks them and external consumers.
+- The JS/Python/PHP samples in the README's "Validar un número" section and the Quick start are hand-written and use `validators.json` keys (`normalize.strip_pattern`, `patterns.*`, `issuers.*`). `npm test` extracts the JS and PHP ones from the README and runs them against the local JSON, so a broken sample fails CI; the Python one is not tested. Renaming a key or a product name (which renames its pattern key) breaks them and external consumers.
 - The bank dropdown in `.github/ISSUE_TEMPLATE/prefijo.yml` and the `issuerName` display map in `build.mjs` (special-cases `METROPOLITANO`) are maintained by hand when issuers change.
 
 ## Versioning and contributors

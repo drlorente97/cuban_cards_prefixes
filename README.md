@@ -183,7 +183,7 @@ Los patrones usan `[0-9]` en lugar de `\d`, porque en Python y en otros motores 
 <details open>
 <summary><b>JavaScript</b></summary>
 
-`kind` debe ser una cadena con una clave de `v.patterns`, en minúsculas. Un tipo desconocido lanza `RangeError` con la lista de valores admitidos.
+Pasa el número como cadena: un `Number` de 16 dígitos pierde precisión. `kind` debe ser una cadena con una clave de `v.patterns`, en minúsculas. Un tipo desconocido lanza `RangeError` con la lista de valores admitidos.
 
 ```js
 const BASE = 'https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@main'

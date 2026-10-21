@@ -28,8 +28,16 @@ const synthetic = (prefix) => {
   }, 0)
   return body + (10 - sum % 10) % 10
 }
-const cup = synthetic('92050699'), usd = synthetic('92250699')
-const fixtures = { any: cup, red: cup, cup, usd, usd_mlc: usd, clasica: synthetic('976003'), clasica_empresarial: synthetic('976004') }
+// Las claves de patrón salen del catálogo, igual que en scripts/build.mjs, para que un producto nuevo no rompa la prueba.
+const productKey = (product) => product.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '_')
+const bank = catalog.issuers.find(i => i.network === 'RED' && i.code?.length === 4).code
+const red = (currency, mlc) => synthetic(catalog.prefixes.find(p => p.network === 'RED' && p.currency === currency && (mlc === undefined || p.mlc_backed === mlc)).prefix + bank)
+const cup = red('CUP'), usd = red('USD', true)
+const fixtures = { any: cup, red: cup, cup, usd, usd_mlc: usd }
+for (const p of catalog.prefixes.filter(p => p.network !== 'RED')) {
+  fixtures[productKey(p.product)] = synthetic(p.prefix)
+  for (const variant of p.variants ?? []) fixtures[productKey(variant.product)] = synthetic(variant.prefix)
+}
 const cases = [
   ...Object.entries(fixtures).map(([kind, raw]) => [raw, kind, true]),
   ['', 'any', false], ['0', 'any', false], ['0'.repeat(16), 'any', false],
