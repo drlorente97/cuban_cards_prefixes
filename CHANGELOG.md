@@ -2,6 +2,16 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.5.2 · 2026-10-21
+
+### Datos nuevos
+
+- `9212`: Trabajadores por cuenta propia (TCP), confirmada también en Banco Metropolitano por un titular (reporte directo).
+
+### Compatibilidad
+
+- Los patrones no cambian: ya aceptaban cualquier banco RED para cualquier producto RED.
+
 ## 0.5.1 · 2026-10-21
 
 ### Datos nuevos
