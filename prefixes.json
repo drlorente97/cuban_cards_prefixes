@@ -1,6 +1,6 @@
 {
   "$schema": "./schema.json",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "updated_at": "2026-10-21",
   "country": "CU",
   "card_length": 16,
@@ -14,14 +14,15 @@
       { "from": 1, "to": 2, "field": "network", "value": "92", "sources": ["community_catalog"] },
       { "from": 3, "to": 4, "field": "product", "sources": ["bandec_post", "community_catalog"] },
       { "from": 5, "to": 8, "field": "issuer", "sources": ["cardholder_report", "kubaforum_bpa"], "notes": "El catálogo comunitario solo da el código del banco en los dígitos 5–6 y pone una sucursal en los 7–9. Los titulares de BANDEC, BPA y Banco Metropolitano confirman que los dígitos 5–8 son fijos por banco." },
+      { "from": 7, "to": 9, "field": "smpe", "sources": ["smpe_report"], "notes": "Dígitos 7–9, fijos por banco según la fuente S. Se guardan en issuers[].smpe; los patrones todavía no exigen el dígito 9." },
       { "from": 9, "to": 15, "field": "account" },
       { "from": 16, "to": 16, "field": "check_digit", "algorithm": "luhn", "sources": ["iso_7812"] }
     ]
   },
   "issuers": [
-    { "id": "BANDEC", "name": "Banco de Crédito y Comercio", "network": "RED", "code": "0699", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa"], "notes": null },
-    { "id": "BPA", "name": "Banco Popular de Ahorro", "network": "RED", "code": "1299", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa"], "notes": null },
-    { "id": "METROPOLITANO", "name": "Banco Metropolitano", "network": "RED", "code": "9598", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa"], "notes": "El catálogo comunitario solo da los dígitos 5–6 (95)." },
+    { "id": "BANDEC", "name": "Banco de Crédito y Comercio", "network": "RED", "code": "0699", "smpe": "999", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa", "smpe_report"], "notes": null },
+    { "id": "BPA", "name": "Banco Popular de Ahorro", "network": "RED", "code": "1299", "smpe": "997", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa", "smpe_report"], "notes": null },
+    { "id": "METROPOLITANO", "name": "Banco Metropolitano", "network": "RED", "code": "9598", "smpe": "987", "sources": ["cardholder_report", "community_catalog", "kubaforum_bpa", "smpe_report"], "notes": "El catálogo comunitario solo da los dígitos 5–6 (95)." },
     { "id": "BICSA", "name": "Banco Internacional de Comercio S.A.", "network": "RED", "code": "04", "sources": ["community_catalog"], "notes": "Código parcial: solo se conocen los dígitos 5–6." },
     { "id": "FINCIMEX", "name": "Financiera CIMEX S.A.", "network": null, "code": null, "sources": ["community_catalog"], "notes": "Emisora de la tarjeta Clásica, que no sigue la estructura RED." },
     { "id": "AIS", "name": "American International Services", "network": null, "code": null, "sources": ["cimex_ais_2020", "fincimex_ais_cup"], "notes": "Empresa de CIMEX que emite las tarjetas AIS. No siguen la estructura RED." }
@@ -63,6 +64,7 @@
     { "id": "bandec_post", "short": "B", "kind": "social_post", "title": "¿Sabías que los dígitos de tu tarjeta Bandec revelan su propósito?", "url": null, "notes": "Publicación atribuida a BANDEC sobre los dígitos 3–4 de sus tarjetas." },
     { "id": "community_catalog", "short": "C", "kind": "community_catalog", "title": "Cuban Bank Card Prefixes v1.0.0 (2026-06-20)", "url": null, "notes": "Catálogo comunitario. Para la estructura del número cita el documento «Tomo 2 Digital»." },
     { "id": "cardholder_report", "short": "T", "kind": "cardholder_report", "title": "Titulares de tarjeta", "url": null, "notes": "Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598), las tarjetas BANDEC 9210 y 9211, la 9234 de nómina en BANDEC y Banco Metropolitano, la 9238 de ahorro en BPA y la Clásica 976003 (issues #1, #2 y #4; PR #6)." },
+    { "id": "smpe_report", "short": "S", "kind": "cardholder_report", "title": "Titulares: dígitos 7–9 (SMPE) de cada banco", "url": null, "notes": "Titulares que dan los dígitos 7–9 de cada banco: BANDEC 999, BPA 997 y Banco Metropolitano 987. Los dígitos 7–8 coinciden con los códigos de las fuentes T y F (#6)." },
     { "id": "kubaforum_bpa", "short": "F", "kind": "social_post", "title": "Kubaforum: «Überweisung mit Sparkasse auf BPA-Konto»", "url": "https://www.kubaforum.eu/artikel/ueberweisung-mit-sparkasse-auf-bpa-konto.35643/", "notes": "Hilo de foro en alemán (diciembre de 2023). Da los dígitos 5–8 de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598). Aportado en el issue #3." },
     { "id": "cubadebate_clasica_empresarial", "short": "CE", "kind": "official", "title": "Informa Financiera CIMEX S.A. sobre ampliación de posibilidades de uso de tarjeta Clásica Empresarial", "url": "http://www.cubadebate.cu/noticias/2025/04/04/informa-financiera-cimex-s-a-sobre-ampliacion-de-posibilidades-de-uso-de-tarjeta-clasica-empresarial/", "notes": "Confirma la existencia de la Clásica Empresarial de FINCIMEX; no publica el prefijo 976004." },
     { "id": "cimex_ais_2020", "short": "A", "kind": "social_post", "title": "Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)", "url": "https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais", "notes": "Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD)." },
