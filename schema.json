@@ -102,6 +102,7 @@
               }
             }
           },
+          "fiscal": { "type": "boolean", "description": "Opcional. true si es una cuenta bancaria fiscal (CBF) según la ONAT." },
           "sources": { "$ref": "#/$defs/sourceList" },
           "notes": { "type": ["string", "null"] }
         }

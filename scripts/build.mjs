@@ -38,6 +38,7 @@ for (const p of data.prefixes) {
     if (!Array.isArray(v.sources) || !v.sources.length) fail(`${v.prefix}: variante sin fuentes`)
     for (const id of v.sources ?? []) if (!sourceIds.has(id)) fail(`${v.prefix}: fuente desconocida ${id}`)
   }
+  if (p.fiscal !== undefined && typeof p.fiscal !== 'boolean') fail(`${p.prefix}: fiscal debe ser true o false`)
 }
 for (const i of data.issuers) {
   if (i.code !== null && !/^\d{2,4}$/.test(i.code)) fail(`${i.id}: el código debe tener de 2 a 4 dígitos`)
@@ -170,7 +171,7 @@ const prefixRow = (p, mark) => {
     ? p.product + (p.aliases.length ? ` · «${p.aliases.join('», «')}»` : '') + variants
     : `_Sin identificar_ · ${askLink(p.prefix)}`
   const sourceIds = [...new Set([...p.sources, ...(p.variants ?? []).flatMap(v => v.sources)])]
-  return `| **\`${p.prefix}\`** | ${product}${mark ? ` ${mark}` : ''} | ${p.issuers.map(id => issuerName[id]).join(', ') || '—'} | ${sourceIds.map(id => short[id]).join(' · ')} |`
+  return `| **\`${p.prefix}\`** | ${product}${p.fiscal ? ' 🧾' : ''}${mark ? ` ${mark}` : ''} | ${p.issuers.map(id => issuerName[id]).join(', ') || '—'} | ${sourceIds.map(id => short[id]).join(' · ')} |`
 }
 const prefixTables = groups.map(g => {
   const list = data.prefixes.filter(g.match)

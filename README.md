@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.5.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.6.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -48,7 +48,7 @@ new RegExp(v.issuers.BANDEC).test(n)   // true: es de BANDEC
 // Falta el dígito de control: ver «Validar un número»
 ```
 
-`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.5.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
+`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.6.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
 
 | Fichero | Qué contiene |
 |---|---|
@@ -93,43 +93,57 @@ La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta 
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9200`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9200) ¹ | — | C |
-| **`9202`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9202) | — | C |
-| **`9204`** | Nómina, fondos, ahorro | BANDEC | B · C |
-| **`9205`** | Ahorro | BANDEC | B · C |
-| **`9206`** | Jubilación | BANDEC | B · C |
+| **`9200`** | Ahorro ¹ | — | C · O |
+| **`9202`** | Estímulo | — | C · O |
+| **`9204`** | Nómina, fondos, ahorro ² | BANDEC | B · C · O |
+| **`9205`** | Ahorro | BANDEC | B · C · O |
+| **`9206`** | Jubilación | BANDEC | B · C · O |
 | **`9210`** | Colaboradores | BANDEC | B · C · T |
 | **`9211`** | Colaboradores | BANDEC | B · C · T |
-| **`9212`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · C |
-| **`9213`** | Trabajadores por cuenta propia (TCP) | BANDEC | B · C |
+| **`9212`** | Trabajadores por cuenta propia (TCP) 🧾 ³ | BANDEC | B · C · O |
+| **`9213`** | Trabajadores por cuenta propia (TCP) 🧾 ⁴ | BANDEC | B · C · O |
 | **`9216`** | Subsidios | BANDEC | B · C |
-| **`9224`** | Nómina, fondos, ahorro | BANDEC | B · C |
-| **`9227`** | Nómina, fondos, ahorro | BANDEC | B · C |
+| **`9224`** | Nómina, fondos, ahorro ⁵ | BANDEC | B · C · O |
+| **`9227`** | Nómina, fondos, ahorro ⁶ | BANDEC | B · C · O |
 | **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · C |
 | **`9234`** | Nómina | BANDEC, Metropolitano | C · T |
 | **`9237`** | Agricultores / usufructuarios | BANDEC | B · C |
 | **`9238`** | Ahorro | BPA | C · T |
 | **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
-| **`9550`** | AIS CUP ² | AIS | A · FX |
+| **`9550`** | AIS CUP ⁷ | AIS | A · FX |
 
-> ¹ **`9200`**: El catálogo comunitario la describe como «Tarjeta en CUP», sin propósito concreto.
+> ¹ **`9200`**: La ONAT la describe con dos usos: ahorro en CUP y ahorro en USD. El catálogo comunitario la describe como «Tarjeta en CUP», sin propósito concreto.
 >
-> ² **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
+> ² **`9204`**: La ONAT la describe como nómina.
+>
+> ³ **`9212`**: Cuenta bancaria fiscal (CBF) en CUP. La ONAT detalla sus usos: TCP, taxistas, GNE y APE.
+>
+> ⁴ **`9213`**: Cuenta bancaria fiscal (CBF) en CUP. La ONAT detalla sus usos: TCP, taxistas, GNE y APE.
+>
+> ⁵ **`9224`**: Según la ONAT, es una extensión del producto 04 (nómina).
+>
+> ⁶ **`9227`**: Tiene dos usos: nómina, como extensión del producto 24, y nómina de artistas, que según la ONAT es una cuenta bancaria fiscal (CBF). Como solo uno de sus usos es fiscal, no lleva el campo fiscal.
+>
+> ⁷ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
 
 ### 💵 USD con respaldo en MLC
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9225`** | Ahorro de personas naturales | BANDEC | B · C |
-| **`9226`** | TCP / productores agropecuarios | BANDEC | B · C |
+| **`9225`** | Ahorro de personas naturales | BANDEC | B · C · O |
+| **`9226`** | TCP / productores agropecuarios 🧾 ¹ | BANDEC | B · C · O |
 | **`9228`** | Cooperativas / MIPYMES | BANDEC | B · C |
-| **`9229`** | Otras entidades ¹ | BANDEC | B · C |
-| **`9235`** | Ahorro de personas naturales | BANDEC | B · C |
+| **`9229`** | Otras entidades ² | BANDEC | B · C |
+| **`9235`** | Ahorro de personas naturales ³ | BANDEC | B · C · O |
 | **`9245`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9245) | — | C |
 | **`9250`** | Cooperativas / MIPYMES | — | C |
 
-> ¹ **`9229`**: El catálogo comunitario la describe como «Personas jurídicas».
+> ¹ **`9226`**: Cuenta bancaria fiscal (CBF) en USD con respaldo en MLC. La ONAT detalla sus usos: TCP, OFGNE y APE.
+>
+> ² **`9229`**: El catálogo comunitario la describe como «Personas jurídicas».
+>
+> ³ **`9235`**: Según la ONAT, es una extensión del producto 25.
 
 ### 💳 USD
 
@@ -144,7 +158,7 @@ La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta 
 > ² **`9760`**: No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
 <!-- prefixes:end -->
 
-**Confirmado en** son los bancos en los que una fuente confirma ese producto. No es una lista cerrada: el mismo producto puede existir en otros bancos, y los validadores lo aceptan en cualquier banco conocido. Las letras de **Fuentes** se explican en [Fuentes](#-fuentes).
+🧾 marca las cuentas bancarias fiscales (CBF) según la ONAT. **Confirmado en** son los bancos en los que una fuente confirma ese producto. No es una lista cerrada: el mismo producto puede existir en otros bancos, y los validadores lo aceptan en cualquier banco conocido. Las letras de **Fuentes** se explican en [Fuentes](#-fuentes).
 
 ## ✅ Validar un número
 
@@ -345,6 +359,7 @@ Cada prefijo de `prefixes.json` tiene esta forma:
 | `aliases` | Otros nombres con los que se conoce |
 | `issuers` | Bancos en los que una fuente confirma el producto |
 | `variants` | Opcional. Prefijos de 6 dígitos con otro producto, cada uno con `prefix`, `product`, `aliases`, `sources` y `notes`. Hoy solo la Clásica Empresarial (`976004`) |
+| `fiscal` | Opcional. `true` si es una cuenta bancaria fiscal (CBF) según la ONAT |
 | `sources` | Fuentes de ese dato (lista `sources` al final del fichero) |
 | `notes` | Aclaraciones y contradicciones entre fuentes |
 
@@ -364,7 +379,7 @@ Hay apps que leen estos ficheros directamente desde `@main`, así que cuidamos q
 Para que nada cambie sin que lo decidas tú, fija una versión en la URL:
 
 ```text
-https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
+https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.6.0/validators.json
 ```
 
 ## 📚 Fuentes
@@ -381,6 +396,7 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
 | **A** | [Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)](https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais) | Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD). |
 | **FX** | [FINCIMEX: «Aclaración a nuestros clientes»](https://www.facebook.com/fincimex/posts/aclaraci%C3%B3n-a-nuestros-clienteslos-clientes-de-tarjetas-ais-no-tendr%C3%A1n-que-presen/752525275358296/) | Aviso en la cuenta oficial de FINCIMEX en Facebook: las tarjetas AIS en CUC pasan a CUP. |
 | **D** | [¿Conoces la tarjeta Tropical en dólares de Cuba? Banco informa sobre este producto (Directorio Cubano, 2025)](https://www.directoriocubano.info/panorama/conoces-la-tarjeta-tropical-en-dolares-de-cuba-banco-informa-sobre-este-producto/) | La 9240 («Tropical») es la tarjeta prepago en dólares de BANDEC, distinta de la 9225 y la 9235, conocidas como tarjetas en MLC. |
+| **O** | [ONAT: cómo identificar si una tarjeta corresponde a una cuenta bancaria fiscal (CBF)](https://www.facebook.com/onat.gob.cu/posts/1069813675327751/) | Publicación en la cuenta oficial de la ONAT en Facebook. Tabla con el producto de cada prefijo y cuáles son cuentas bancarias fiscales (CBF). |
 | **ISO** | [ISO/IEC 7812-1: números de identificación de tarjetas](https://en.wikipedia.org/wiki/ISO/IEC_7812) | El último dígito de un número de tarjeta es un dígito de control Luhn. |
 <!-- sources:end -->
 
@@ -404,7 +420,7 @@ Este catálogo crece con lo que comparte la comunidad. Gracias a:
 | [@armandofcom](https://github.com/armandofcom) | El código `9598` de Banco Metropolitano, con el hilo de Kubaforum que lo documenta ([#3](https://github.com/qvapay/cuban_cards_prefixes/issues/3)). |
 | [@Y4S3L23](https://github.com/Y4S3L23) | La confirmación, con su propia tarjeta, del `9598` y de la `9234` en Banco Metropolitano ([#4](https://github.com/qvapay/cuban_cards_prefixes/issues/4)). |
 | [@livegnik97](https://github.com/livegnik97) | La pista de la Clásica Empresarial (`976004`) a partir de la lógica de Transfermóvil ([#5](https://github.com/qvapay/cuban_cards_prefixes/issues/5)). |
-| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica, las tarjetas AIS (`9550` y `9560`), la Tropical (`9240`) como prepago en USD, los dígitos 7–9 (SMPE) de cada banco y el aviso de FINCIMEX sobre el paso de las AIS a CUP ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)). |
+| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica, las tarjetas AIS (`9550` y `9560`), la Tropical (`9240`) como prepago en USD, los dígitos 7–9 (SMPE) de cada banco, la tabla de la ONAT con las cuentas fiscales y el aviso de FINCIMEX sobre el paso de las AIS a CUP ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)). |
 | [@Chichimokers](https://github.com/Chichimokers) | Las variantes por los dígitos 5–6 y la Clásica Empresarial (`976004`), con el aviso de CIMEX que la documenta ([#7](https://github.com/qvapay/cuban_cards_prefixes/pull/7)). |
 
 ¿Tienes una tarjeta que falta o una fuente? [Cuéntanoslo](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml) y apareces aquí.
@@ -439,7 +455,7 @@ Cards on the Cuban **RED** network have 16 digits: digits 1–2 are the network 
 
 To validate a number: strip spaces, hyphens and dots (`normalize.strip_pattern`), match it against a pattern and check the Luhn digit. See the code samples above.
 
-To avoid unannounced changes, pin a version with `@v0.5.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
+To avoid unannounced changes, pin a version with `@v0.6.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
 
 This is a community catalog, not an official source. Never post a full card number in an issue or pull request: the first 8 digits are enough.
 
