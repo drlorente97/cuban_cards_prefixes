@@ -94,7 +94,7 @@ El banco o la entidad que emite la tarjeta. Cada banco pertenece a una sola red.
 
 ### SMPE
 
-Sufijo de la red interbancaria. **No forma parte del código del banco**, pero cada banco tiene siempre el mismo, así que sirve para confirmarlo: un número de BANDEC sigue siempre con `999`. Los códigos y los SMPE de cada banco están en la tabla de [Bancos](#-bancos).
+Sistema de Medios de Pago Electrónicos: Sufijo de la red interbancaria. **No forma parte del código del banco**, pero cada banco tiene siempre el mismo, así que sirve para confirmarlo: un número de BANDEC sigue siempre con `999`. Los códigos y los SMPE de cada banco están en la tabla de [Bancos](#-bancos).
 
 ## 🏦 Bancos
 
@@ -130,7 +130,7 @@ Sufijo de la red interbancaria. **No forma parte del código del banco**, pero c
 | **`9227`** | Nómina, fondos, ahorro ⁷ | BANDEC, Metropolitano | B · H · C · T · O |
 | **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · H · C |
 | **`9234`** | Nómina | BANDEC, Metropolitano | C · T |
-| **`9236`** | Cuentas corrientes y créditos ⁸ | — | T |
+| **`9236`** | Cuentas corrientes y créditos ⁸ | BPA | T |
 | **`9237`** | Agricultores / usufructuarios | BANDEC | B · H · C |
 | **`9238`** | Ahorro | BPA | C · T |
 | **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
