@@ -75,6 +75,8 @@ Con los **4 primeros dígitos** ya se sabe el producto y la moneda. Con los **8 
 
 La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta estructura: sus dígitos 5–8 no son un código de banco. Los dígitos 5–6 de la Clásica distinguen productos: `976004` es la Clásica Empresarial.
 
+Más detalle de cada elemento y de cómo validarlos uno a uno: [elementos-y-validacion.md](docs/elementos-y-validacion.md).
+
 ## 🏦 Bancos
 
 <!-- banks:start -->
