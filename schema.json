@@ -46,21 +46,21 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "network", "code", "sources", "notes"],
+        "required": ["id", "name", "network", "code", "smpe", "sources", "notes"],
         "additionalProperties": false,
         "properties": {
           "id": { "$ref": "#/$defs/issuerId" },
           "name": { "type": "string" },
-          "network": { "enum": ["RED", null] },
+          "network": { "enum": ["RED", "AIS", "CLASICA", null] },
           "code": {
             "type": ["string", "null"],
-            "pattern": "^\\d{2,4}$",
-            "description": "Código del banco a partir del dígito 5. Si tiene menos de 4 dígitos, el resto no se conoce."
+            "pattern": "^\\d{2}$",
+            "description": "Código del banco: dígitos 5–6."
           },
           "smpe": {
-            "type": "string",
-            "pattern": "^\\d{3}$",
-            "description": "Opcional. Dígitos 7–9 (SMPE), fijos por banco. Sus dos primeros dígitos coinciden con los dos últimos de code. Los patrones no lo exigen."
+            "type": ["string", "null"],
+            "pattern": "^\\d{2,3}$",
+            "description": "SMPE: dígitos 7–9, fijos por banco. Si tiene menos de 3 dígitos, el resto no se conoce."
           },
           "sources": { "$ref": "#/$defs/sourceList" },
           "notes": { "type": ["string", "null"] }
@@ -75,7 +75,7 @@
         "additionalProperties": false,
         "properties": {
           "prefix": { "type": "string", "pattern": "^\\d{4}$", "description": "Dígitos 1–4." },
-          "network": { "enum": ["RED", null], "description": "null = no sigue la estructura RED (la Clásica y las AIS)." },
+          "network": { "enum": ["RED", "AIS", "CLASICA"] },
           "currency": { "enum": ["CUP", "USD"] },
           "mlc_backed": { "type": ["boolean", "null"], "description": "USD con respaldo en MLC, en la terminología de BANDEC. null = no se sabe." },
           "product": { "type": ["string", "null"], "description": "null = producto sin identificar." },
@@ -84,9 +84,10 @@
             "type": "array",
             "items": { "$ref": "#/$defs/issuerId" },
             "uniqueItems": true,
-            "description": "Bancos en los que una fuente confirma este producto. No es una lista exclusiva."
+            "description": "Bancos en los que una fuente confirma este producto. No es una lista exclusiva, salvo con exclusive."
           },
-          "fiscal": { "type": "boolean", "description": "Opcional. true si es una cuenta bancaria fiscal (CBF) según la ONAT." },
+          "fiscal": { "type": "boolean", "description": "true = se usa para cuentas bancarias fiscales (CBF), según la ONAT. Si falta, no se sabe o no lo es." },
+          "exclusive": { "type": "boolean", "description": "true = el producto solo existe en los bancos de issuers. Si falta, cualquier banco de la red." },
           "variants": {
             "type": "array",
             "description": "Productos que comparten el prefijo y se distinguen por dígitos posteriores (p. ej. 976004, Clásica empresarial).",

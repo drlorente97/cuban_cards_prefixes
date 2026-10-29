@@ -30,12 +30,13 @@ const synthetic = (prefix) => {
 }
 // Las claves de patrón salen del catálogo, igual que en scripts/build.mjs, para que un producto nuevo no rompa la prueba.
 const productKey = (product) => product.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '_')
-const bank = catalog.issuers.find(i => i.network === 'RED' && i.code?.length === 4).code
+const known = (id) => { const i = catalog.issuers.find(i => i.id === id); return i.code + (i.smpe ?? '') }
+const bank = known('BANDEC')
 const red = (currency, mlc) => synthetic(catalog.prefixes.find(p => p.network === 'RED' && p.currency === currency && (mlc === undefined || p.mlc_backed === mlc)).prefix + bank)
 const cup = red('CUP'), usd = red('USD', true)
 const fixtures = { any: cup, red: cup, cup, usd, usd_mlc: usd }
 for (const p of catalog.prefixes.filter(p => p.network !== 'RED')) {
-  fixtures[productKey(p.product)] = synthetic(p.prefix)
+  fixtures[productKey(p.product)] = synthetic(p.prefix + known(p.issuers[0]))
   for (const variant of p.variants ?? []) fixtures[productKey(variant.product)] = synthetic(variant.prefix)
 }
 const cases = [

@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-30-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.7.1-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-30-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.8.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -20,7 +20,7 @@ Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualqui
 ## ✨ Para qué sirve
 
 - **Validar formularios.** Rechaza al momento un número que no es una tarjeta cubana o que tiene un dígito mal tecleado.
-- **Decir qué tarjeta es mientras se escribe.** Con los 8 primeros dígitos ya puedes mostrar «Tarjeta en CUP · BANDEC · Ahorro».
+- **Decir qué tarjeta es mientras se escribe.** Con los 9 primeros dígitos ya puedes mostrar «Tarjeta en CUP · BANDEC · Ahorro».
 - **Evitar envíos a la tarjeta equivocada.** Distingue CUP, USD con respaldo en MLC y la Clásica antes de mandar el dinero.
 - **Sin dependencias, en cualquier lenguaje.** Son dos ficheros JSON y unas expresiones regulares.
 - **Con fuentes.** Cada prefijo dice de dónde sale, y lo que no está confirmado se marca como tal.
@@ -41,14 +41,14 @@ https://raw.githubusercontent.com/qvapay/cuban_cards_prefixes/main/prefixes.json
 ```js
 const v = await fetch('https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@main/validators.json').then(r => r.json())
 
-const n = '9205 0699 0000 0000'.replace(new RegExp(v.normalize.strip_pattern, 'g'), '')
+const n = '9205 0699 9000 0001'.replace(new RegExp(v.normalize.strip_pattern, 'g'), '')
 
 new RegExp(v.patterns.cup).test(n)     // true: es una tarjeta en CUP
 new RegExp(v.issuers.BANDEC).test(n)   // true: es de BANDEC
 // Falta el dígito de control: ver «Validar un número»
 ```
 
-`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.5.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
+`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.8.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
 
 Cada push a `main` purga la caché de jsDelivr, así que `@main` refleja el cambio en pocos minutos en lugar de las 12 horas que tarda por defecto.
 
@@ -61,33 +61,52 @@ Cada push a `main` purga la caché de jsDelivr, así que `@main` refleja el camb
 
 ## 🔢 Anatomía de una tarjeta
 
-Las tarjetas de la red **RED** tienen 16 dígitos:
+Las tarjetas cubanas tienen 16 dígitos, repartidos en seis elementos:
 
-| Dígitos | Qué indican | Ejemplo |
+| Dígitos | Elemento | Ejemplo |
 |:-:|---|---|
-| 1–2 | Red RED | `92` |
-| 3–4 | Producto y moneda | `05`: ahorro en CUP |
-| 5–8 | Banco | `0699`: BANDEC. El dígito 9 también es fijo por banco (`999` en BANDEC, ver [Bancos](#-bancos)) |
-| 9–15 | Cuenta | |
+| 1–2 | **Red** | `92` |
+| 3–4 | **Producto** | `05` |
+| 5–6 | **Banco** | `06` |
+| 7–9 | **SMPE** | `999` |
+| 10–15 | Consecutivo | |
 | 16 | Dígito de control [Luhn](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn) (ISO/IEC 7812) | |
 
-Con los **4 primeros dígitos** ya se sabe el producto y la moneda. Con los **8 primeros**, también el banco.
+Cada elemento depende del anterior: el producto y el banco dependen de la red, y el SMPE depende del banco.
 
-La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta estructura: sus dígitos 5–8 no son un código de banco. Los dígitos 5–6 de la Clásica distinguen productos: `976004` es la Clásica Empresarial.
+### Red
 
-Más detalle de cada elemento y de cómo validarlos uno a uno: [elementos-y-validacion.md](docs/elementos-y-validacion.md).
+La red a la que pertenece la tarjeta. Su código siempre empieza por 9.
+
+| Red | Código | Productos | Bancos |
+|---|:-:|---|---|
+| **RED** | `92` | Los de [Prefijos](#-prefijos): CUP, USD con respaldo en MLC y la Tropical en USD | BANDEC, BPA, Metropolitano, BICSA |
+| **AIS** | `95` | `50` CUP, `60` USD | AIS |
+| **Clásica** | `97` | `60` USD | FINCIMEX |
+
+### Producto
+
+Qué tarjeta es y en qué moneda. **Un mismo código puede significar cosas distintas en cada red**: `50` es USD con respaldo en MLC en RED, pero CUP en AIS. Por eso el producto siempre se lee junto con la red, y la combinación de los dos es el **prefijo** (`9205`, `9550`…) que cataloga este repositorio.
+
+### Banco
+
+El banco o la entidad que emite la tarjeta. Cada banco pertenece a una sola red. Un producto suele existir en todos los bancos de su red; la excepción es la Tropical (`9240`), que solo emite BANDEC.
+
+### SMPE
+
+Sufijo de la red interbancaria. **No forma parte del código del banco**, pero cada banco tiene siempre el mismo, así que sirve para confirmarlo: un número de BANDEC sigue siempre con `999`. Los códigos y los SMPE de cada banco están en la tabla de [Bancos](#-bancos).
 
 ## 🏦 Bancos
 
 <!-- banks:start -->
-| Banco | Dígitos 5–8 | Dígitos 7–9 (SMPE) | Patrón |
-|---|:-:|:-:|---|
-| **BANDEC** · Banco de Crédito y Comercio | `0699` | `999` | `issuers.BANDEC` |
-| **BPA** · Banco Popular de Ahorro | `1299` | `997` | `issuers.BPA` |
-| **Banco Metropolitano** | `9598` | `987` | `issuers.METROPOLITANO` |
-| **BICSA** · Banco Internacional de Comercio S.A. | `04··` (parcial) | — | `issuers.BICSA` |
-| **FINCIMEX** · Financiera CIMEX S.A. | — | — | `patterns.clasica` |
-| **AIS** · American International Services | — | — | `patterns.ais_cup`, `patterns.ais_usd` |
+| Banco | Red | Código | SMPE | Patrón |
+|---|:-:|:-:|:-:|---|
+| **BANDEC** · Banco de Crédito y Comercio | RED `92` | `06` | `999` | `issuers.BANDEC` |
+| **BPA** · Banco Popular de Ahorro | RED `92` | `12` | `997` | `issuers.BPA` |
+| **Banco Metropolitano** | RED `92` | `95` | `987` | `issuers.METROPOLITANO` |
+| **BICSA** · Banco Internacional de Comercio S.A. | RED `92` | `04` | — | `issuers.BICSA` |
+| **FINCIMEX** · Financiera CIMEX S.A. | Clásica `97` | `03` | `900` | `issuers.FINCIMEX` |
+| **AIS** · American International Services | AIS `95` | `02` | `90·` (parcial) | `issuers.AIS` |
 <!-- banks:end -->
 
 ## 📋 Prefijos
@@ -166,25 +185,39 @@ Más detalle de cada elemento y de cómo validarlos uno a uno: [elementos-y-vali
 
 > ¹ **`9240`**: Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC.
 >
-> ² **`9760`**: No sigue la estructura RED: los dígitos 5–8 no son un código de banco. Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
+> ² **`9760`**: Es de la red Clásica (`97`). Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
 <!-- prefixes:end -->
 
 🧾 marca las cuentas bancarias fiscales (CBF) según la ONAT. **Confirmado en** son los bancos en los que una fuente confirma ese producto. No es una lista cerrada: el mismo producto puede existir en otros bancos, y los validadores lo aceptan en cualquier banco conocido. Las letras de **Fuentes** se explican en [Fuentes](#-fuentes).
 
 ## ✅ Validar un número
 
+Se valida un elemento cada vez, en orden, y cada uno contra los anteriores. El primero que falla es el que hay que corregir, y se puede avisar mientras el usuario escribe.
+
 ```mermaid
-flowchart LR
-  A["Lo que escribe<br>el usuario"] --> B["Quitar espacios,<br>guiones y puntos"]
-  B --> C{"¿Coincide con<br>un patrón?"}
-  C -- sí --> D{"¿Pasa<br>Luhn?"}
-  D -- sí --> E["✅ Tarjeta<br>cubana válida"]
-  C -- no --> X["❌ No es válida"]
-  D -- no --> X
+flowchart TD
+  R["1 · Red"] -->|sí| P["2 · Producto"] -->|sí| B["3 · Banco"] -->|sí| S["4 · SMPE"] -->|sí| L["5 · Luhn"] -->|sí| OK(["✅ Válida"])
+  R & P & B & S & L -.->|no| X["❌ Falla ese elemento"]
+  classDef paso fill:#eef4ff,stroke:#3b6fd8,color:#0f1f3d
+  classDef ok fill:#e6f7ec,stroke:#1f9d55,color:#0b3d20
+  classDef error fill:#fdecec,stroke:#d64545,color:#4a1010
+  class R,P,B,S,L paso
+  class OK ok
+  class X error
 ```
 
+| | Elemento | Es válido si… | Ejemplo que falla | Por qué |
+|:-:|---|---|---|---|
+| 1 | Red | es `92`, `95` o `97` | `93 …` | No es una red |
+| 2 | Producto | existe en esa red | `95 05 …` | `05` es un producto de RED, no de AIS |
+| 3 | Banco | es de esa red y, si el producto es exclusivo, de sus bancos | `92 05 03 …`<br>`92 40 12 …` | `03` es de la Clásica<br>La Tropical solo es de BANDEC |
+| 4 | SMPE | es el de ese banco | `92 05 06 987 …` | `987` es el de Metropolitano |
+| 5 | Luhn | el dígito de control cuadra | un dígito mal tecleado | |
+
+Para validar un número completo:
+
 1. **Normaliza** el número: quita lo que indica `normalize.strip_pattern`.
-2. **Compara** con un patrón de `validators.json`.
+2. **Compara** con un patrón de `validators.json`. Los patrones hacen los pasos 1 a 4 de una vez; para saber cuál falla, usa `validators.networks` (ver `explain` en el ejemplo de JavaScript).
 3. **Comprueba el dígito de control** Luhn. Una expresión regular no puede hacerlo, pero son pocas líneas de código.
 
 | Patrón | Acepta |
@@ -192,15 +225,12 @@ flowchart LR
 | `patterns.any` | Cualquier tarjeta cubana del catálogo |
 | `patterns.red` | Cualquier tarjeta de la red RED |
 | `patterns.cup` | Tarjetas en CUP |
-| `patterns.usd` | Tarjetas en USD, incluidas la Clásica y la AIS en USD |
+| `patterns.usd` | Tarjetas en USD: con respaldo en MLC, Tropical, Clásica y AIS USD |
 | `patterns.usd_mlc` | Tarjetas en USD con respaldo en MLC |
 | `patterns.clasica` | Tarjeta Clásica, incluida la Clásica Empresarial |
 | `patterns.clasica_empresarial` | Clásica Empresarial (`976004`) |
-| `patterns.ais_cup` | Tarjeta AIS en CUP (`9550`) |
-| `patterns.ais_usd` | Tarjeta AIS en USD (`9560`) |
-| `issuers.<BANCO>` | Tarjetas RED de ese banco |
-
-Además, `variants` da el producto de los prefijos de 6 dígitos que se distinguen de su prefijo de 4, como `976004`, la Clásica Empresarial.
+| `patterns.ais_cup`, `patterns.ais_usd` | Tarjetas AIS en CUP y en USD |
+| `issuers.<BANCO>` | Tarjetas de ese banco o emisora |
 
 Los patrones usan `[0-9]` en lugar de `\d`, porque en Python y en otros motores `\d` también acepta dígitos que no son ASCII. Funcionan igual en JavaScript, Python, PHP, Java, Go, Dart y Ruby.
 
@@ -246,8 +276,26 @@ const describe = (raw) => {
   return { prefix: p.prefix, currency: p.currency, mlc_backed: p.mlc_backed, product, bank }
 }
 
-describe('9205 0699 0000 0000')
+describe('9205 0699 9000 0001')
 // { prefix: '9205', currency: 'CUP', mlc_backed: false, product: 'Ahorro', bank: 'BANDEC' }
+
+// Primer elemento que falla con lo que se lleva escrito, o null. Sirve mientras se escribe.
+const explain = (raw) => {
+  const n = normalize(raw)
+  const net = v.networks[n.slice(0, 2)]
+  if (n.length >= 2 && !net) return 'red'
+  const product = net?.products[n.slice(2, 4)]
+  if (n.length >= 4 && !product) return 'producto'
+  const bank = n.slice(4, 6)
+  if (n.length >= 6 && !product.issuers.includes(bank)) return 'banco'
+  const smpe = net?.issuers[bank]?.smpe ?? ''
+  if (n.length > 6 && !smpe.startsWith(n.slice(6, 6 + smpe.length))) return 'smpe'
+  if (n.length === 16 && !luhn(n)) return 'luhn'
+  return null
+}
+
+explain('9205 06')    // null
+explain('9205 0698')  // 'smpe'
 ```
 
 </details>
@@ -297,7 +345,7 @@ def describe(raw):
         'bank': bank or next(iter(p['issuers']), None),
     }
 
-describe('9205 0699 0000 0000')
+describe('9205 0699 9000 0001')
 # {'prefix': '9205', 'currency': 'CUP', 'mlc_backed': False, 'product': 'Ahorro', 'bank': 'BANDEC'}
 ```
 
@@ -346,8 +394,8 @@ function bankOf(string $raw, array $v): ?string {
     return null;
 }
 
-var_dump(isCubanCard('9205 0699 0000 0000', $v, 'cup')); // bool(true)
-var_dump(bankOf('9205-0699-0000-0000', $v));             // string(6) "BANDEC"
+var_dump(isCubanCard('9205 0699 9000 0001', $v, 'cup')); // bool(true)
+var_dump(bankOf('9205-0699-9000-0001', $v));             // string(6) "BANDEC"
 ```
 
 </details>
@@ -362,29 +410,33 @@ Cada prefijo de `prefixes.json` tiene esta forma:
   "network": "RED",
   "currency": "USD",
   "mlc_backed": false,
-  "product": "Prepago en USD",
+  "product": "Ahorro de personas naturales",
   "aliases": ["Tropical"],
   "issuers": ["BANDEC"],
-  "sources": ["bandec_post", "lahabana_bandec", "community_catalog", "directoriocubano_tropical"],
-  "notes": "Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC."
+  "exclusive": true,
+  "sources": ["bandec_post", "community_catalog", "smpe_report"],
+  "notes": "Es USD, no MLC (confirmado por titulares), aunque BANDEC la agrupa con las tarjetas en USD con respaldo en MLC. El catálogo comunitario la llama «Tropical». Solo existe en BANDEC."
 }
 ```
 
 | Campo | Qué es |
 |---|---|
-| `prefix` | Los 4 primeros dígitos |
-| `network` | `RED`, o `null` si el producto no sigue la estructura RED (la Clásica y las AIS) |
+| `prefix` | Red y producto |
+| `network` | Red de la tarjeta: `RED` (`92`), `AIS` (`95`) o `CLASICA` (`97`) |
 | `currency` | `CUP` o `USD` |
 | `mlc_backed` | `true` si es USD con respaldo en MLC, como lo llama BANDEC. `null` si no se sabe |
 | `product` | Producto o propósito. `null` si todavía no se ha identificado |
 | `aliases` | Otros nombres con los que se conoce |
 | `issuers` | Bancos en los que una fuente confirma el producto |
-| `fiscal` | Opcional. `true` si es una cuenta bancaria fiscal (CBF) según la ONAT |
-| `variants` | Opcional. Prefijos de 6 dígitos con otro producto, cada uno con `prefix`, `product`, `aliases`, `sources` y `notes`. Hoy solo la Clásica Empresarial (`976004`) |
 | `sources` | Fuentes de ese dato (lista `sources` al final del fichero) |
-| `notes` | Aclaraciones y contradicciones entre fuentes |
+| `notes` | Aclaraciones: productos con más de un uso y diferencias entre fuentes |
+| `exclusive` | Opcional. `true` si el producto solo existe en los bancos de `issuers` (la Tropical) |
+| `variants` | Opcional, solo en productos que no son RED. Prefijos de 6 dígitos con otro producto (la Clásica Empresarial, `976004`) |
+| `fiscal` | Opcional. `true` si la ONAT lo lista como cuenta bancaria fiscal (CBF) |
 
-En `issuers`, el campo `code` son los dígitos del banco a partir de la posición 5. Si tiene menos de 4 dígitos, el resto todavía no se conoce. El campo opcional `smpe` son los dígitos 7–9, también fijos por banco: sus dos primeros dígitos son los dos últimos de `code`, y el build comprueba que coincidan. Los patrones todavía no exigen el dígito 9; se exigirá cuando haya más confirmaciones.
+En `issuers`, `code` es el código del banco y `smpe` su SMPE. Si `smpe` está incompleto, el resto todavía no se conoce; si es `null`, no se conoce.
+
+`validators.networks` tiene lo mismo separado por elemento: por cada red, sus productos (moneda y bancos en los que existen) y sus bancos (con su SMPE).
 
 ## 🔖 Versiones y compatibilidad
 
@@ -395,12 +447,15 @@ Hay apps que leen estos ficheros directamente desde `@main`, así que cuidamos q
 | Prefijos, bancos, fuentes o campos opcionales nuevos, o un `product` que deja de ser `null` | No |
 | Claves nuevas en `validators.json` | No |
 | Una corrección de datos que cambia lo que aceptan los patrones | Puede: un número que antes pasaba deja de pasar, o al revés. Se anota en el registro de cambios. Por ejemplo, en la 0.2.0 Banco Metropolitano pasó de `95··` a `9598`. |
-| Cambiar el formato o el significado de un campo, o renombrar o quitar una clave | Sí. Lo evitamos, y si algún día hace falta se avisará con una versión mayor. |
+| Cambiar el formato o el significado de un campo, o renombrar o quitar una clave | Sí. Se avisa con una versión mayor, como en la 0.8.0. |
+
+> [!IMPORTANT]
+> **Este fork sigue su propio modelo desde la 0.8.0** y ya no es compatible con el repositorio original: `issuers[].code` tiene 2 dígitos (dígitos 5–6) y el SMPE va aparte en `smpe`, `network` es `RED`, `AIS` o `CLASICA`, los patrones exigen el SMPE de cada banco y `validators.json` añade `networks`. Si necesitas el formato original, usa [qvapay/cuban_cards_prefixes](https://github.com/qvapay/cuban_cards_prefixes).
 
 Para que nada cambie sin que lo decidas tú, fija una versión en la URL:
 
 ```text
-https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
+https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.8.0/validators.json
 ```
 
 ## 📚 Fuentes
@@ -412,7 +467,7 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
 | **H** | [Cómo identificar tarjetas bancarias en Cuba por sus dígitos](https://www.lahabana.gob.cu/post_detalles/es/29956/como-identificar-tarjetas-bancarias-en-cuba-por-sus-digitos) | Portal del Ciudadano de La Habana (7 de agosto de 2026). Reproduce la nota de BANDEC con los mismos prefijos en CUP y en USD, incluye la 9250 junto a la 9228 y llama «Tropical» a la 9240. Aportado en el issue #11. |
 | **C** | Cuban Bank Card Prefixes v1.0.0 (2026-06-20) | Catálogo comunitario. Para la estructura del número cita el documento «Tomo 2 Digital». |
 | **T** | Titulares de tarjeta | Titulares que confirman el código de banco de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598); las tarjetas BANDEC 9210 y 9211; la 9200 en BANDEC y Banco Metropolitano; la 9204 de nómina en BPA; la 9205 de ahorro en BPA y Banco Metropolitano; la 9212 de TCP en Banco Metropolitano; la 9224, la 9227 y la 9234 en Banco Metropolitano; la 9238 de ahorro en BPA, y la Clásica 976003 (issues #1, #2, #4, #8, #9, #10, #12, #14 y #18; PR #6). |
-| **S** | Titulares: dígitos 7–9 (SMPE) de cada banco | Titulares que dan los dígitos 7–9 de cada banco: BANDEC 999, BPA 997 y Banco Metropolitano 987. Los dígitos 7–8 coinciden con los códigos de las fuentes T y F. |
+| **S** | Titulares: banco y SMPE | Redes 92 (RED), 95 (AIS) y 97 (Clásica); código de banco y SMPE de cada banco (BANDEC 06·999, BPA 12·997, Metropolitano 95·987, Clásica 03·900, AIS 02·90); productos AIS 50 (CUP) y 60 (USD); la Tropical (9240) es USD sin respaldo en MLC y solo existe en BANDEC. |
 | **F** | [Kubaforum: «Überweisung mit Sparkasse auf BPA-Konto»](https://www.kubaforum.eu/artikel/ueberweisung-mit-sparkasse-auf-bpa-konto.35643/) | Hilo de foro en alemán (diciembre de 2023). Da los dígitos 5–8 de BANDEC (0699), BPA (1299) y Banco Metropolitano (9598). Aportado en el issue #3. |
 | **CE** | [Informa Financiera CIMEX S.A. sobre ampliación de posibilidades de uso de tarjeta Clásica Empresarial](http://www.cubadebate.cu/noticias/2025/04/04/informa-financiera-cimex-s-a-sobre-ampliacion-de-posibilidades-de-uso-de-tarjeta-clasica-empresarial/) | Confirma la existencia de la Clásica Empresarial de FINCIMEX; no publica el prefijo 976004. |
 | **A** | [Cimex responde a usuarios sobre dudas con respecto a las tarjetas AIS (Directorio Cubano, 2020)](https://www.directoriocubano.info/panorama/cimex-responde-a-usuarios-sobre-dudas-con-respecto-a-las-tarjetas-ais) | Cimex confirma que las tarjetas AIS empiezan por 9550 (entonces en CUC) y 9560 (USD). Aportada en el PR #16. |
@@ -426,7 +481,7 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.5.0/validators.json
 
 - El producto de los prefijos marcados como _Sin identificar_ en las tablas.
 - Los dígitos 7–9 de BICSA.
-- La entidad emisora de la Clásica y qué significan sus dígitos 5–8.
+- El SMPE de BICSA y el último dígito del SMPE de AIS.
 - Una tarjeta Clásica Empresarial que confirme el `976004`. Hoy sale de la lógica de Transfermóvil analizada en el [#5](https://github.com/qvapay/cuban_cards_prefixes/issues/5).
 - El enlace a la publicación original de BANDEC (el portal del Gobierno de La Habana la reproduce: fuente **H**).
 
@@ -455,7 +510,7 @@ Este catálogo crece con lo que comparte la comunidad. Muchos reportes llegan de
 
 ## 🤝 Contribuir
 
-- **Con un issue**: el formulario de [nuevo prefijo o corrección](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml) pide los 8 primeros dígitos, el banco, la moneda, el producto y la fuente.
+- **Con un issue**: el formulario de [nuevo prefijo o corrección](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml) pide los 9 primeros dígitos, el banco, la moneda, el producto y la fuente.
 - **Con un pull request**:
   1. Parte de la última versión de `main` y trata un solo tema por pull request: así se revisa y se integra antes.
   2. Edita `prefixes.json` y cita la fuente de cada dato: un enlace al documento original, un documento o tu propia tarjeta. Tiene que ser algo que otra persona pueda comprobar.
@@ -466,7 +521,7 @@ Este catálogo crece con lo que comparte la comunidad. Muchos reportes llegan de
 Cuando integramos tu aporte, apareces en [Quién ha aportado](#-quién-ha-aportado).
 
 > [!WARNING]
-> **Nunca publiques un número de tarjeta completo** en un issue, un pull request o un commit. Para identificar un producto bastan los 8 primeros dígitos.
+> **Nunca publiques un número de tarjeta completo** en un issue, un pull request o un commit. Para identificar un producto bastan los 9 primeros dígitos.
 
 ## 🇺🇸 English
 
@@ -479,11 +534,11 @@ An open catalog of **Cuban bank card prefixes**: which product, currency and ban
 - [`validators.json`](validators.json): regular expressions generated from the catalog, by currency (`cup`, `usd`, `usd_mlc`, `clasica`, `clasica_empresarial`, `ais_cup`, `ais_usd`, `any`) and by bank (`BANDEC`, `BPA`, `METROPOLITANO`, `BICSA`), plus a `variants` map for 6-digit prefixes such as `976004` (Clásica Empresarial).
 - [`schema.json`](schema.json): JSON Schema 2020-12 for `prefixes.json`.
 
-Cards on the Cuban **RED** network have 16 digits: digits 1–2 are the network (`92`), 3–4 the product and currency, 5–8 the bank (`0699` BANDEC, `1299` BPA, `9598` Banco Metropolitano), 9–15 the account and 16 a Luhn check digit.
+Cuban cards have 16 digits: 1–2 the network (`92` RED, `95` AIS, `97` Clásica), 3–4 the product and currency, 5–6 the bank (`06` BANDEC, `12` BPA, `95` Banco Metropolitano), 7–9 the SMPE (fixed per bank: `999`, `997`, `987`), 10–15 the account and 16 a Luhn check digit. From 0.8.0 this fork's patterns require the bank's SMPE and `validators.networks` lets you check each element separately.
 
 To validate a number: strip spaces, hyphens and dots (`normalize.strip_pattern`), match it against a pattern and check the Luhn digit. See the code samples above.
 
-To avoid unannounced changes, pin a version with `@v0.5.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
+To avoid unannounced changes, pin a version with `@v0.8.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
 
 This is a community catalog, not an official source. Never post a full card number in an issue or pull request: the first 8 digits are enough.
 

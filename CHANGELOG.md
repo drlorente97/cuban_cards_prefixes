@@ -2,6 +2,25 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.8.0 · 2026-10-29
+
+Este fork pasa a su propio modelo y deja de ser compatible con el repositorio original.
+
+### Cambia el formato y lo que aceptan los patrones
+
+- **`issuers[].code`** tiene 2 dígitos (dígitos 5–6: `06`, `12`, `95`, `04`, `03`, `02`) y el SMPE (dígitos 7–9) va aparte en `smpe`, obligatorio y `null` si no se conoce.
+- **`network`** pasa a ser `RED` (`92`), `AIS` (`95`) o `CLASICA` (`97`). Antes la Clásica y las AIS eran `null`. `structure` describe las tres.
+- **Los patrones exigen el SMPE** del banco: `9205 0699 0000 0000` ya no pasa; `9205 0699 9000 0001` sí. Los patrones por banco usan los 9 dígitos conocidos.
+- **`exclusive`**: la Tropical (`9240`) solo existe en BANDEC, y `patterns.any` y `usd` no la aceptan en otro banco.
+- La Clásica (`9760`) y las AIS (`9550`, `9560`) siguen su red: `patterns.clasica` y `patterns.ais_*` aceptan los bancos de su red y las variantes (`976004`) como antes.
+
+### Datos nuevos
+
+- **`validators.networks`**: cada elemento por separado (red, productos con moneda y bancos, bancos con SMPE) para validar uno contra otro y decir cuál falla.
+- Emisores `FINCIMEX` (`03`, SMPE `900`) y `AIS` (`02`, SMPE `90·`) con red propia.
+- El README explica cada elemento por separado, con el diagrama y la tabla de validación y `explain()` en el ejemplo de JavaScript. La tabla de bancos muestra red, código y SMPE.
+- Formulario de issues: pide los 9 primeros dígitos.
+
 ## 0.7.1 · 2026-10-29
 
 ### Datos nuevos

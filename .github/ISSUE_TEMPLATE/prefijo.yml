@@ -6,13 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        ⚠️ **Nunca escribas un número de tarjeta completo.** Bastan los 8 primeros dígitos.
+        ⚠️ **Nunca escribas un número de tarjeta completo.** Bastan los 9 primeros dígitos.
   - type: input
     id: prefix
     attributes:
       label: Primeros dígitos
-      description: Solo los 4 u 8 primeros.
-      placeholder: "9205 0699"
+      description: Solo los 9 primeros (red, producto, banco y SMPE), o los 4 primeros si no los tienes.
+      placeholder: "9205 06 999"
     validations:
       required: true
   - type: dropdown
