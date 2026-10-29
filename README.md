@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-29-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.7.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-30-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.7.1-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -109,11 +109,12 @@ La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta 
 | **`9227`** | Nómina, fondos, ahorro ⁷ | BANDEC, Metropolitano | B · H · C · T · O |
 | **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · H · C |
 | **`9234`** | Nómina | BANDEC, Metropolitano | C · T |
+| **`9236`** | Cuentas corrientes y créditos ⁸ | — | T |
 | **`9237`** | Agricultores / usufructuarios | BANDEC | B · H · C |
 | **`9238`** | Ahorro | BPA | C · T |
 | **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
-| **`9550`** | AIS CUP ⁸ | AIS | A · FX |
+| **`9550`** | AIS CUP ⁹ | AIS | A · FX |
 
 > ¹ **`9200`**: El catálogo comunitario y la nota de BANDEC la describen como «Tarjeta en CUP», sin propósito concreto. Titulares la confirman en BANDEC (issue #9) y en Banco Metropolitano (issue #14). Un titular reporta que son las antiguas tarjetas en CUC, que pasaron a CUP al retirarse esa moneda (issue #14); falta otra fuente que lo confirme. La ONAT le da dos usos: ahorro en CUP y ahorro en USD.
 >
@@ -129,7 +130,9 @@ La tarjeta **Clásica** (`9760`) y las **AIS** (`9550` y `9560`) no siguen esta 
 >
 > ⁷ **`9227`**: Banco Metropolitano confirmado por un titular en el issue #8. Tiene dos usos: nómina, como extensión del producto 24, y nómina de artistas, que según la ONAT es una cuenta bancaria fiscal (CBF). Como solo uno de sus usos es fiscal, no lleva el campo fiscal.
 >
-> ⁸ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
+> ⁸ **`9236`**: Cuentas corrientes y asociadas a créditos y consumos específicos en pesos. Típica de líneas de crédito y subsidios estatales a personas naturales.
+>
+> ⁹ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
 
 ### 💵 USD con respaldo en MLC
 
@@ -437,7 +440,7 @@ Este catálogo crece con lo que comparte la comunidad. Muchos reportes llegan de
 | [@armandofcom](https://github.com/armandofcom) | El código `9598` de Banco Metropolitano, con el hilo de Kubaforum que lo documenta ([#3](https://github.com/qvapay/cuban_cards_prefixes/issues/3)). |
 | [@Y4S3L23](https://github.com/Y4S3L23) | La confirmación, con su propia tarjeta, del `9598` y de la `9234` en Banco Metropolitano ([#4](https://github.com/qvapay/cuban_cards_prefixes/issues/4)). |
 | [@livegnik97](https://github.com/livegnik97) | La pista de la Clásica Empresarial (`976004`) a partir de la lógica de Transfermóvil ([#5](https://github.com/qvapay/cuban_cards_prefixes/issues/5)) y el enlace oficial a la nota de BANDEC ([#11](https://github.com/qvapay/cuban_cards_prefixes/issues/11)). |
-| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)), las tarjetas AIS (`9550` y `9560`) con el aviso de FINCIMEX sobre su paso a CUP,, la Tropical (`9240`) como prepago en USD , los dígitos 7–9 (SMPE) de cada banco y la tabla de la ONAT con las cuentas fiscales ([#16](https://github.com/qvapay/cuban_cards_prefixes/pull/16)). |
+| [@drlorente97](https://github.com/drlorente97) | El `976003` de la Clásica ([#6](https://github.com/qvapay/cuban_cards_prefixes/pull/6)), las tarjetas AIS (`9550` y `9560`) con el aviso de FINCIMEX sobre su paso a CUP, la Tropical (`9240`) como prepago en USD, la `9236` en CUP, los dígitos 7–9 (SMPE) de cada banco y la tabla de la ONAT con las cuentas fiscales ([#16](https://github.com/qvapay/cuban_cards_prefixes/pull/16)). |
 | [@Chichimokers](https://github.com/Chichimokers) | Las variantes por los dígitos 5–6 y la Clásica Empresarial (`976004`), con el aviso de CIMEX que la documenta ([#7](https://github.com/qvapay/cuban_cards_prefixes/pull/7)), y la `9227` en Banco Metropolitano ([#8](https://github.com/qvapay/cuban_cards_prefixes/issues/8)). |
 | [@xero-q](https://github.com/xero-q) | La `9205` de ahorro en Banco Metropolitano, confirmada con su tarjeta ([#18](https://github.com/qvapay/cuban_cards_prefixes/issues/18)). |
 | [@rblez](https://github.com/rblez) | El [Explorador de tarjetas cubanas](https://rblez.github.io/explorador-tarjetas-cubanas/), desde el que llegan muchos reportes, y la `9200` en BANDEC ([#9](https://github.com/qvapay/cuban_cards_prefixes/issues/9)). |

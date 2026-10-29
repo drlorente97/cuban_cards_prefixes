@@ -2,6 +2,16 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.7.1 · 2026-10-29
+
+### Datos nuevos
+
+- `9236`: cuentas corrientes y asociadas a créditos y consumos específicos en pesos (CUP), típica de líneas de crédito y subsidios estatales a personas naturales (reporte directo).
+
+### Compatibilidad
+
+- `patterns.any` y `patterns.cup` aceptan ahora la `9236` con cualquier banco RED.
+
 ## 0.7.0 · 2026-10-29
 
 ### Datos nuevos

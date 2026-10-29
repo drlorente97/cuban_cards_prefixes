@@ -1,6 +1,6 @@
 {
   "$schema": "./schema.json",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "updated_at": "2026-10-21",
   "country": "CU",
   "card_length": 16,
@@ -42,6 +42,7 @@
     { "prefix": "9227", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "Nómina, fondos, ahorro", "aliases": [], "issuers": ["BANDEC", "METROPOLITANO"], "sources": ["bandec_post", "lahabana_bandec", "community_catalog", "cardholder_report", "onat_cbf"], "notes": "Banco Metropolitano confirmado por un titular en el issue #8. Tiene dos usos: nómina, como extensión del producto 24, y nómina de artistas, que según la ONAT es una cuenta bancaria fiscal (CBF). Como solo uno de sus usos es fiscal, no lleva el campo fiscal." },
     { "prefix": "9233", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "MIPYMES / cooperativas no agropecuarias", "aliases": [], "issuers": ["BANDEC"], "sources": ["bandec_post", "lahabana_bandec", "community_catalog"], "notes": null },
     { "prefix": "9234", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "Nómina", "aliases": [], "issuers": ["BANDEC", "METROPOLITANO"], "sources": ["community_catalog", "cardholder_report"], "notes": null },
+    { "prefix": "9236", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "Cuentas corrientes y créditos", "aliases": [], "issuers": [], "sources": ["cardholder_report"], "notes": "Cuentas corrientes y asociadas a créditos y consumos específicos en pesos. Típica de líneas de crédito y subsidios estatales a personas naturales." },
     { "prefix": "9237", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "Agricultores / usufructuarios", "aliases": [], "issuers": ["BANDEC"], "sources": ["bandec_post", "lahabana_bandec", "community_catalog"], "notes": null },
     { "prefix": "9238", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": "Ahorro", "aliases": [], "issuers": ["BPA"], "sources": ["community_catalog", "cardholder_report"], "notes": null },
     { "prefix": "9244", "network": "RED", "currency": "CUP", "mlc_backed": false, "product": null, "aliases": [], "issuers": [], "sources": ["community_catalog"], "notes": null },
