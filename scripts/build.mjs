@@ -27,6 +27,7 @@ for (const p of data.prefixes) {
   for (const id of p.issuers) if (!issuerIds.has(id)) fail(`${p.prefix}: banco desconocido ${id}`)
   if (!p.sources.length) fail(`${p.prefix}: sin fuentes`)
   for (const id of p.sources) if (!sourceIds.has(id)) fail(`${p.prefix}: fuente desconocida ${id}`)
+  if (p.fiscal !== undefined && typeof p.fiscal !== 'boolean') fail(`${p.prefix}: fiscal debe ser true o false`)
   if (p.network === 'RED' && p.variants?.length) fail(`${p.prefix}: variants solo se usa en productos que no siguen la estructura RED`)
   for (const v of p.variants ?? []) {
     if (!/^\d{6}$/.test(v.prefix)) fail(`${v.prefix}: el prefijo de una variante debe tener 6 dígitos`)
@@ -170,7 +171,7 @@ const prefixRow = (p, mark) => {
     ? p.product + (p.aliases.length ? ` · «${p.aliases.join('», «')}»` : '') + variants
     : `_Sin identificar_ · ${askLink(p.prefix)}`
   const sourceIds = [...new Set([...p.sources, ...(p.variants ?? []).flatMap(v => v.sources)])]
-  return `| **\`${p.prefix}\`** | ${product}${mark ? ` ${mark}` : ''} | ${p.issuers.map(id => issuerName[id]).join(', ') || '—'} | ${sourceIds.map(id => short[id]).join(' · ')} |`
+  return `| **\`${p.prefix}\`** | ${product}${p.fiscal ? ' 🧾' : ''}${mark ? ` ${mark}` : ''} | ${p.issuers.map(id => issuerName[id]).join(', ') || '—'} | ${sourceIds.map(id => short[id]).join(' · ')} |`
 }
 const prefixTables = groups.map(g => {
   const list = data.prefixes.filter(g.match)

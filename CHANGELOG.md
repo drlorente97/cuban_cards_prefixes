@@ -2,6 +2,15 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.7.0 · 2026-10-29
+
+### Datos nuevos
+
+- Fuente nueva **O**: la tabla de cuentas bancarias fiscales (CBF) publicada por la cuenta oficial de la ONAT.
+- `9200` pasa a «Ahorro» y `9202` a «Estímulo».
+- Campo opcional `fiscal` en los prefijos: `true` en `9212`, `9213` y `9226`. En el README se marcan con 🧾.
+- Notas de la ONAT en `9200`, `9204`, `9224`, `9227` y `9235`. La `9227` tiene dos usos: nómina y nómina de artistas, que es fiscal.
+
 ## 0.6.0 · 2026-10-29
 
 ### Datos nuevos

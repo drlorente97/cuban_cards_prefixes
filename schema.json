@@ -86,6 +86,7 @@
             "uniqueItems": true,
             "description": "Bancos en los que una fuente confirma este producto. No es una lista exclusiva."
           },
+          "fiscal": { "type": "boolean", "description": "Opcional. true si es una cuenta bancaria fiscal (CBF) según la ONAT." },
           "variants": {
             "type": "array",
             "description": "Productos que comparten el prefijo y se distinguen por dígitos posteriores (p. ej. 976004, Clásica empresarial).",
