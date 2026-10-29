@@ -2,6 +2,15 @@
 
 Qué cambia en cada versión de los datos. Para fijar una versión, usa `@vX.Y.Z` en lugar de `@main` en la URL (ver [Versiones y compatibilidad](README.md#-versiones-y-compatibilidad)).
 
+## 0.8.1 · 2026-10-29
+
+### Datos nuevos
+
+- Fuente nueva **BD**: la publicación de la cuenta oficial de BANDEC con los códigos de producto. Añade `9244` como «Nómina, fondos, ahorro» en BANDEC y aclara que la Tropical (`9240`) es para personas naturales y actores económicos no estatales.
+- Fuente nueva **BP**: la imagen del BPA con sus productos. Confirma en BPA las `9204`, `9205`, `9206`, `9225`, `9226`, `9228`, `9233`, `9235`, `9237` y `9238`. Para el BPA, `9237` es TCP (para BANDEC, agricultores): los propósitos pueden diferir según el banco.
+- `9236` confirmada en BPA.
+- README: el SMPE es el «Sistema de Medios de Pago Electrónicos».
+
 ## 0.8.0 · 2026-10-29
 
 Este fork pasa a su propio modelo y deja de ser compatible con el repositorio original.

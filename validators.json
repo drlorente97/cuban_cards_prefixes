@@ -1,6 +1,6 @@
 {
   "generated_from": "prefixes.json",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "updated_at": "2026-10-21",
   "card_length": 16,
   "luhn": true,

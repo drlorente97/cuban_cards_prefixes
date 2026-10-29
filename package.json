@@ -1,6 +1,6 @@
 {
   "name": "cuban-cards-prefixes",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Prefijos de tarjetas bancarias cubanas: producto, moneda y banco, con validadores en JSON",
   "type": "module",
   "license": "MIT",

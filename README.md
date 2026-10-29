@@ -8,7 +8,7 @@
 Un catálogo abierto, con sus fuentes, y validadores listos para usar en cualquier lenguaje.
 
 <!-- badges:start -->
-![prefijos](https://img.shields.io/badge/prefijos-30-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.8.0-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
+![prefijos](https://img.shields.io/badge/prefijos-30-0ea5e9) ![emisores](https://img.shields.io/badge/emisores-6-6366f1) ![versión](https://img.shields.io/badge/versi%C3%B3n-0.8.1-22c55e) ![dependencias](https://img.shields.io/badge/dependencias-0-f59e0b) [![licencia](https://img.shields.io/badge/licencia-MIT-64748b)](LICENSE) [![check](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml/badge.svg)](https://github.com/qvapay/cuban_cards_prefixes/actions/workflows/check.yml)
 <!-- badges:end -->
 
 [Inicio rápido](#-inicio-rápido) · [Anatomía](#-anatomía-de-una-tarjeta) · [Prefijos](#-prefijos) · [Validar](#-validar-un-número) · [Formato](#-formato-de-los-datos) · [Versiones](#-versiones-y-compatibilidad) · [Contribuir](#-contribuir) · [English](#-english)
@@ -48,7 +48,7 @@ new RegExp(v.issuers.BANDEC).test(n)   // true: es de BANDEC
 // Falta el dígito de control: ver «Validar un número»
 ```
 
-`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.8.0` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
+`@main` siempre trae la última versión. Para que tu integración no cambie sin que lo decidas tú, fija una versión: `@v0.8.1` en lugar de `@main`. Ver [Versiones y compatibilidad](#-versiones-y-compatibilidad).
 
 Cada push a `main` purga la caché de jsDelivr, así que `@main` refleja el cambio en pocos minutos en lugar de las 12 horas que tarda por defecto.
 
@@ -118,24 +118,24 @@ Sistema de Medios de Pago Electrónicos: Sufijo de la red interbancaria. **No fo
 |:-:|---|---|:-:|
 | **`9200`** | Ahorro ¹ | BANDEC, Metropolitano | C · H · T · O |
 | **`9202`** | Estímulo | — | C · O |
-| **`9204`** | Nómina, fondos, ahorro ² | BANDEC, BPA | B · H · C · T · O |
-| **`9205`** | Ahorro ³ | BANDEC, Metropolitano, BPA | B · H · C · T · O |
-| **`9206`** | Jubilación | BANDEC | B · H · C · O |
-| **`9210`** | Colaboradores | BANDEC | B · H · C · T |
-| **`9211`** | Colaboradores | BANDEC | B · H · C · T |
-| **`9212`** | Trabajadores por cuenta propia (TCP) 🧾 ⁴ | BANDEC, Metropolitano | B · H · C · T · O |
-| **`9213`** | Trabajadores por cuenta propia (TCP) 🧾 ⁵ | BANDEC | B · H · C · O |
-| **`9216`** | Subsidios | BANDEC | B · H · C |
-| **`9224`** | Nómina, fondos, ahorro ⁶ | BANDEC, Metropolitano | B · H · C · T · O |
-| **`9227`** | Nómina, fondos, ahorro ⁷ | BANDEC, Metropolitano | B · H · C · T · O |
-| **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC | B · H · C |
+| **`9204`** | Nómina, fondos, ahorro ² | BANDEC, BPA | B · H · C · T · O · BD · BP |
+| **`9205`** | Ahorro ³ | BANDEC, Metropolitano, BPA | B · H · C · T · O · BD · BP |
+| **`9206`** | Jubilación | BANDEC, BPA | B · H · C · O · BD · BP |
+| **`9210`** | Colaboradores | BANDEC | B · H · C · T · BD |
+| **`9211`** | Colaboradores | BANDEC | B · H · C · T · BD |
+| **`9212`** | Trabajadores por cuenta propia (TCP) 🧾 ⁴ | BANDEC, Metropolitano | B · H · C · T · O · BD |
+| **`9213`** | Trabajadores por cuenta propia (TCP) 🧾 ⁵ | BANDEC | B · H · C · O · BD |
+| **`9216`** | Subsidios | BANDEC | B · H · C · BD |
+| **`9224`** | Nómina, fondos, ahorro ⁶ | BANDEC, Metropolitano | B · H · C · T · O · BD |
+| **`9227`** | Nómina, fondos, ahorro ⁷ | BANDEC, Metropolitano | B · H · C · T · O · BD |
+| **`9233`** | MIPYMES / cooperativas no agropecuarias | BANDEC, BPA | B · H · C · BD · BP |
 | **`9234`** | Nómina | BANDEC, Metropolitano | C · T |
 | **`9236`** | Cuentas corrientes y créditos ⁸ | BPA | T |
-| **`9237`** | Agricultores / usufructuarios | BANDEC | B · H · C |
-| **`9238`** | Ahorro | BPA | C · T |
-| **`9244`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9244) | — | C |
+| **`9237`** | Agricultores / usufructuarios ⁹ | BANDEC, BPA | B · H · C · BD · BP |
+| **`9238`** | Ahorro | BPA | C · T · BP |
+| **`9244`** | Nómina, fondos, ahorro (10) | BANDEC | C · BD |
 | **`9248`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9248) | — | C |
-| **`9550`** | AIS CUP ⁹ | AIS | A · FX |
+| **`9550`** | AIS CUP (11) | AIS | A · FX |
 
 > ¹ **`9200`**: El catálogo comunitario y la nota de BANDEC la describen como «Tarjeta en CUP», sin propósito concreto. Titulares la confirman en BANDEC (issue #9) y en Banco Metropolitano (issue #14). Un titular reporta que son las antiguas tarjetas en CUC, que pasaron a CUP al retirarse esa moneda (issue #14); falta otra fuente que lo confirme. La ONAT le da dos usos: ahorro en CUP y ahorro en USD.
 >
@@ -153,17 +153,21 @@ Sistema de Medios de Pago Electrónicos: Sufijo de la red interbancaria. **No fo
 >
 > ⁸ **`9236`**: Cuentas corrientes y asociadas a créditos y consumos específicos en pesos. Típica de líneas de crédito y subsidios estatales a personas naturales.
 >
-> ⁹ **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
+> ⁹ **`9237`**: El BPA la llama «Trabajadores por cuenta propia»; BANDEC, «Agricultores / usufructuarios». Los propósitos pueden diferir según el banco.
+>
+> (10) **`9244`**: BANDEC la agrupa con nómina, formación de fondos y ahorro.
+>
+> (11) **`9550`**: Cuando se emitió era en CUC. Con la eliminación del CUC pasó a CUP, según el aviso de FINCIMEX.
 
 ### 💵 USD con respaldo en MLC
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9225`** | Ahorro de personas naturales | BANDEC | B · H · C · O |
-| **`9226`** | TCP / productores agropecuarios 🧾 ¹ | BANDEC | B · H · C · O |
-| **`9228`** | Cooperativas / MIPYMES | BANDEC | B · H · C |
-| **`9229`** | Otras entidades ² | BANDEC | B · H · C |
-| **`9235`** | Ahorro de personas naturales ³ | BANDEC | B · H · C · O |
+| **`9225`** | Ahorro de personas naturales | BANDEC, BPA | B · H · C · O · BD · BP |
+| **`9226`** | TCP / productores agropecuarios 🧾 ¹ | BANDEC, BPA | B · H · C · O · BD · BP |
+| **`9228`** | Cooperativas / MIPYMES | BANDEC, BPA | B · H · C · BD · BP |
+| **`9229`** | Otras entidades ² | BANDEC | B · H · C · BD |
+| **`9235`** | Ahorro de personas naturales ³ | BANDEC, BPA | B · H · C · O · BD · BP |
 | **`9245`** | _Sin identificar_ · [¿la tienes?](https://github.com/qvapay/cuban_cards_prefixes/issues/new?template=prefijo.yml&prefix=9245) | — | C |
 | **`9250`** | Cooperativas / MIPYMES ⁴ | BANDEC | C · H |
 
@@ -179,11 +183,11 @@ Sistema de Medios de Pago Electrónicos: Sufijo de la red interbancaria. **No fo
 
 | Prefijo | Producto | Confirmado en | Fuentes |
 |:-:|---|---|:-:|
-| **`9240`** | Prepago en USD · «Tropical» ¹ | BANDEC | B · H · C · D |
+| **`9240`** | Prepago en USD · «Tropical» ¹ | BANDEC | B · H · C · D · BD |
 | **`9760`** | Clásica · `976004` Clásica Empresarial ² | FINCIMEX | C · T · CE |
 | **`9560`** | AIS USD | AIS | A |
 
-> ¹ **`9240`**: Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC.
+> ¹ **`9240`**: Prepago en USD sin respaldo en MLC. Directorio Cubano (2025) la describe como la tarjeta prepago en dólares de BANDEC, antes conocida como «9240», y la distingue de la 9225 y la 9235, conocidas como tarjetas en MLC. BANDEC la agrupa con las tarjetas en USD con respaldo en MLC y, en la nota que reproduce el portal de La Habana, la llama «Tropical». El catálogo comunitario también la llama «Tropical» y la clasifica como prepago en USD. Solo se conoce en BANDEC. BANDEC la publica como «Tarjeta Tropical» para personas naturales y actores económicos no estatales.
 >
 > ² **`9760`**: Es de la red Clásica (`97`). Los dígitos 5–6 distinguen 976003 (Clásica, reportada en el issue #5 y en el PR #6) de 976004 (Clásica Empresarial).
 <!-- prefixes:end -->
@@ -455,7 +459,7 @@ Hay apps que leen estos ficheros directamente desde `@main`, así que cuidamos q
 Para que nada cambie sin que lo decidas tú, fija una versión en la URL:
 
 ```text
-https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.8.0/validators.json
+https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.8.1/validators.json
 ```
 
 ## 📚 Fuentes
@@ -474,6 +478,8 @@ https://cdn.jsdelivr.net/gh/qvapay/cuban_cards_prefixes@v0.8.0/validators.json
 | **FX** | [FINCIMEX: «Aclaración a nuestros clientes»](https://www.facebook.com/fincimex/posts/aclaraci%C3%B3n-a-nuestros-clienteslos-clientes-de-tarjetas-ais-no-tendr%C3%A1n-que-presen/752525275358296/) | Aviso en la cuenta oficial de FINCIMEX en Facebook: las tarjetas AIS en CUC pasan a CUP. Aportada en el PR #16. |
 | **D** | [¿Conoces la tarjeta Tropical en dólares de Cuba? Banco informa sobre este producto (Directorio Cubano, 2025)](https://www.directoriocubano.info/panorama/conoces-la-tarjeta-tropical-en-dolares-de-cuba-banco-informa-sobre-este-producto/) | La 9240 («Tropical») es la tarjeta prepago en dólares de BANDEC, distinta de la 9225 y la 9235, conocidas como tarjetas en MLC. Aportada en el PR #16. |
 | **O** | [ONAT: cómo identificar si una tarjeta corresponde a una cuenta bancaria fiscal (CBF)](https://www.facebook.com/onat.gob.cu/posts/1069813675327751/) | Publicación en la cuenta oficial de la ONAT en Facebook. Tabla con el producto de cada prefijo y cuáles son cuentas bancarias fiscales (CBF). |
+| **BD** | [BANDEC (Facebook): códigos de producto de sus tarjetas](https://www.facebook.com/permalink.php?story_fbid=pfbid02cueKUG8oBcz9r7ABGX935dryK2saEZ4QZVec6QrNxv2pzZ3qxsCuBzg9FhDaAJ5l&id=100063861381020) | Publicación en la cuenta oficial de BANDEC: productos en CUP (04, 05, 24, 27, 34 y 44 nómina, formación de fondos y ahorro; 06 jubilación; 10 y 11 colaboradores; 12 y 13 TCP; 16 subsidios; 33 MIPYMES; 37 agricultores) y en USD con respaldo en MLC (25 y 35 personas naturales; 40 Tropical; 26 TCP y productores agropecuarios; 28 cooperativas y MIPYMES; 29 otras entidades). |
+| **BP** | BPA: cómo identificar los tipos de tarjeta magnética según el producto | Imagen del BPA (#Bancarización #PagosElectrónicos): ahorro en CUP 9205 o 9238, salario 9204, jubilados 9206, cuenta MLC 9225, 9235, 9226 y 9228, TCP 9237 y MIPYMES 9233. Aclara que los propósitos pueden diferir según el banco. |
 | **ISO** | [ISO/IEC 7812-1: números de identificación de tarjetas](https://en.wikipedia.org/wiki/ISO/IEC_7812) | El último dígito de un número de tarjeta es un dígito de control Luhn. |
 <!-- sources:end -->
 
@@ -538,7 +544,7 @@ Cuban cards have 16 digits: 1–2 the network (`92` RED, `95` AIS, `97` Clásica
 
 To validate a number: strip spaces, hyphens and dots (`normalize.strip_pattern`), match it against a pattern and check the Luhn digit. See the code samples above.
 
-To avoid unannounced changes, pin a version with `@v0.8.0` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
+To avoid unannounced changes, pin a version with `@v0.8.1` instead of `@main`. Every change is listed in [CHANGELOG.md](CHANGELOG.md).
 
 This is a community catalog, not an official source. Never post a full card number in an issue or pull request: the first 8 digits are enough.
 
